@@ -14,9 +14,7 @@ class GameManager
 {
 public:
     GameManager(){}
-    void InitializingGame();
-    void PrintGamePiecePosistion();
-    void PlayerInput();
+    bool AbleToAttack(int X, int Y);
     vector<ChessPiece*> vect;
 private:
     int CharToInt(char input);
@@ -33,5 +31,8 @@ private:
         h
     };
 
+    void InitializingGame();
+    void PrintGamePiecePosistion();
+    void PlayerInput();
 };
 #endif // GAMEMANAGER_H
