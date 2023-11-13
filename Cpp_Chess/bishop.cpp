@@ -1,6 +1,6 @@
 #include "bishop.h"
 
-//Bishop::Bishop()
-//{
+bool Bishop::Move(int X, int Y)
+{
 
-//}
+}

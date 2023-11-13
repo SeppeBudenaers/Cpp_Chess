@@ -1,6 +1,6 @@
 #include "rook.h"
 
-//Rook::Rook()
-//{
+bool Rook::Move(int X, int Y)
+{
 
-//}
+}

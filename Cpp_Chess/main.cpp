@@ -6,9 +6,12 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello World!" << endl;
     GameManager gamemanager;
     gamemanager.InitializingGame();
     gamemanager.PrintGamePiecePosistion();
+    gamemanager.PlayerInput();
+    gamemanager.PlayerInput();
+    gamemanager.PlayerInput();
+    gamemanager.PlayerInput();
     return 0;
 }

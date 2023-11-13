@@ -1,6 +1,6 @@
 #include "king.h"
 
-//King::King()
-//{
+bool King::Move(int X, int Y)
+{
 
-//}
+}

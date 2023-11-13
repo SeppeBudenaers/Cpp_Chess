@@ -1,6 +1,6 @@
 #include "queen.h"
 
-//Queen::Queen()
-//{
+bool Queen::Move(int X, int Y)
+{
 
-//}
+}

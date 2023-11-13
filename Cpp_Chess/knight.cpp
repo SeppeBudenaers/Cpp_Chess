@@ -1,6 +1,6 @@
 #include "knight.h"
 
-//Knight::Knight()
-//{
+bool Knight::Move(int X, int Y)
+{
 
-//}
+}

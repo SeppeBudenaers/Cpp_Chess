@@ -8,15 +8,19 @@
 #include "king.h"
 #include "queen.h"
 #include "pawn.h"
+
 using namespace std;
 class GameManager
 {
 public:
-    GameManager();
+    GameManager(){}
     void InitializingGame();
     void PrintGamePiecePosistion();
+    void PlayerInput();
     vector<ChessPiece*> vect;
 private:
+    int CharToInt(char input);
+    bool TurnTracker = false;
     enum Xcordinantes
     {
         a,

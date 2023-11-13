@@ -6,6 +6,7 @@ class Bishop :public ChessPiece
 {
 public:
     Bishop(int X,int Y, bool Color) : ChessPiece(X,Y,Color)   {}
+    bool Move(int X, int Y);
 };
 
 #endif // BISHOP_H

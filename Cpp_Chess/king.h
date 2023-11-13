@@ -6,6 +6,7 @@ class King : public ChessPiece
 {
 public:
     King(int X,int Y,bool Color) : ChessPiece(X,Y,Color) {}
+    bool Move(int X, int Y);
 };
 
 #endif // KING_H
