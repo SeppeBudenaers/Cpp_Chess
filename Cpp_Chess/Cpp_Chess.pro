@@ -6,6 +6,7 @@ CONFIG -= qt
 SOURCES += \
         bishop.cpp \
         chesspiece.cpp \
+        gamemanager.cpp \
         king.cpp \
         knight.cpp \
         main.cpp \
@@ -16,6 +17,7 @@ SOURCES += \
 HEADERS += \
     bishop.h \
     chesspiece.h \
+    gamemanager.h \
     king.h \
     knight.h \
     pawn.h \
