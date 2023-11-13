@@ -49,33 +49,33 @@ int main()
     }
     for (ChessPiece* I : vect) {
         cout<<"Cord of game piece is : ";
-        switch (I->Xcordinate) {
+        switch (I->GetPosX()) {
         case 0:
-            cout<<"a"<<I->Ycordinate;
+            cout<<"a"<<I->GetPosY();
             break;
         case 1:
-            cout<<"b"<<I->Ycordinate;
+            cout<<"b"<<I->GetPosY();
             break;
         case 2:
-            cout<<"c"<<I->Ycordinate;
+            cout<<"c"<<I->GetPosY();
             break;
         case 3:
-            cout<<"d"<<I->Ycordinate;
+            cout<<"d"<<I->GetPosY();
             break;
         case 4:
-            cout<<"e"<<I->Ycordinate;
+            cout<<"e"<<I->GetPosY();
             break;
         case 5:
-            cout<<"f"<<I->Ycordinate;
+            cout<<"f"<<I->GetPosY();
             break;
         case 6:
-            cout<<"g"<<I->Ycordinate;
+            cout<<"g"<<I->GetPosY();
             break;
         case 7:
-            cout<<"h"<<I->Ycordinate;
+            cout<<"h"<<I->GetPosY();
             break;
         }
-        if(I->White == 0){cout<<" And the color is : White"<<endl;}
+        if(I->GetColor() == 0){cout<<" And the color is : White"<<endl;}
         else {cout<<" And the color is : Black"<<endl;}
     }
 
