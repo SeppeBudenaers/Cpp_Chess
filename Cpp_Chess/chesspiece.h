@@ -12,8 +12,8 @@ public:
 private:
     virtual int GetPosX() = 0;
     virtual int GetPosY() = 0;
-    virtual bool GetColor() = false;
-    virtual const char* Move()	= 0;
+    virtual bool GetColor() = 0;
+//    virtual const char* Move()	= 0;
 };
 
 #endif // CHESSPIECE_H
