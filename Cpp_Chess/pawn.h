@@ -7,7 +7,7 @@
 class Pawn : public ChessPiece
 {
 public:
-    Pawn(int X, int Y,bool Color)  : ChessPiece(X,Y,Color)   {}
+    Pawn(int X,int Y, bool Color, GameManager* GameManager) : ChessPiece(X,Y,Color,GameManager)   {}
     bool Move(int X, int Y);
 private:
     bool FirstMove = true;

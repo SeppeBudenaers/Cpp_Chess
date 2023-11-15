@@ -14,8 +14,12 @@ class GameManager
 {
 public:
     GameManager(){}
-    bool AbleToAttack(int X, int Y);
-    vector<ChessPiece*> vect;
+    bool AbleToAttack(int X, int Y) const;
+    bool IsBlocked(int X, int Y) const;
+
+    void InitializingGame();
+    void PrintGamePiecePosistion();
+    void PlayerInput();
 private:
     int CharToInt(char input);
     bool TurnTracker = false;
@@ -30,9 +34,6 @@ private:
         g,
         h
     };
-
-    void InitializingGame();
-    void PrintGamePiecePosistion();
-    void PlayerInput();
+    vector<ChessPiece*> vect;
 };
 #endif // GAMEMANAGER_H

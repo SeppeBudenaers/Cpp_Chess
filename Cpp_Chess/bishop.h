@@ -5,7 +5,7 @@
 class Bishop :public ChessPiece
 {
 public:
-    Bishop(int X,int Y, bool Color) : ChessPiece(X,Y,Color)   {}
+    Bishop(int X,int Y, bool Color, GameManager* GameManager) : ChessPiece(X,Y,Color,GameManager)   {}
     bool Move(int X, int Y);
 };
 
