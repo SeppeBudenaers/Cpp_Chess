@@ -9,9 +9,13 @@ int main()
     GameManager gamemanager;
     gamemanager.InitializingGame();
     gamemanager.PrintGamePiecePosistion();
-    gamemanager.PlayerInput();
-    gamemanager.PlayerInput();
-    gamemanager.PlayerInput();
-    gamemanager.PlayerInput();
+    gamemanager.Turn();
+    gamemanager.PrintGamePiecePosistion();
+    gamemanager.Turn();
+    gamemanager.PrintGamePiecePosistion();
+    gamemanager.Turn();
+    gamemanager.PrintGamePiecePosistion();
+    gamemanager.Turn();
+    gamemanager.PrintGamePiecePosistion();
     return 0;
 }

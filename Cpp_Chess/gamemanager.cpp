@@ -8,6 +8,14 @@ bool GameManager::AbleToAttack(int X, int Y) const
     return false;
 }
 
+bool GameManager::IsBlocked(int X, int Y) const
+{
+    for (ChessPiece* I :vect){
+        if((I->GetPosX() == X )&&(I->GetPosY() == Y)&&(I->GetColor() == TurnTracker)){return true;}
+    }
+    return false;
+}
+
 int GameManager::CharToInt(char Input)
 {
     switch (Input) {
@@ -45,6 +53,32 @@ int GameManager::CharToInt(char Input)
         break;
     }
     return -1;
+}
+
+bool GameManager::OutOfBounds(int X, int Y)
+{
+    if((-1<X)&&(X<8)&&(-1<Y)&&(Y<8))
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+GameManager::coordinates GameManager::ScanInput()
+{
+    bool CordinatesAquired = false;
+    char charXinput= 0;
+    coordinates Input;
+    while (!CordinatesAquired) {
+        cin>>charXinput>>Input.Y;
+        Input.X = CharToInt(charXinput);
+        if(!OutOfBounds(Input.X,Input.Y)){CordinatesAquired = true;}
+        else{cout<<"Cordinates are out of bounds."<<endl;}
+    }
+    return  Input;
 }
 
 void GameManager::InitializingGame()
@@ -102,32 +136,49 @@ void GameManager::PrintGamePiecePosistion()
     }
 }
 
-void GameManager::PlayerInput()
+void GameManager::Turn()
 {
-    if(TurnTracker){cout<<"Blacks turn"<<endl<<"Please enter pawn that you want to move :";}
-    else{cout<<"Whites turn"<<endl<<"Please enter pawn that you want to move :";}
-    char charXBeginPosition = 0;
-    int  XBeginPosition = 0;
-    int  YBeginPosition = 0;
-    cin>>charXBeginPosition>>YBeginPosition;
-    XBeginPosition = CharToInt(charXBeginPosition);
+    //flags
+    bool TurnCompleted = false;
     bool FoundPiece = false;
-    for (ChessPiece* I :vect)
+    bool ValidMove = false;
+    while(!TurnCompleted)
     {
-        if((I->GetPosX() == XBeginPosition )&&(I->GetPosY() == YBeginPosition)&&(I->GetColor() == TurnTracker)){
-            char charXEndPosition = 0;
-            int  XEndPosition = 0;
-            int  YEndPosition = 0;
-            cout<<"To ?:";
-            cin>>charXEndPosition>>YEndPosition;
-            XEndPosition = CharToInt(charXEndPosition);
-            I->Move(XEndPosition,YEndPosition);
-            FoundPiece = true;
-            break;
+        if(TurnTracker){cout<<"Blacks turn"<<endl<<"Please enter pawn that you want to move :";}
+        else{cout<<"Whites turn"<<endl<<"Please enter pawn that you want to move :";}
+
+        coordinates BeginPosition;
+        BeginPosition = ScanInput();
+        for (ChessPiece* I :vect)
+        {
+        if((I->GetPosX() == BeginPosition.X )&&(I->GetPosY() == BeginPosition.Y)&&(I->GetColor() == TurnTracker)){
+                FoundPiece = true;
+                coordinates EndPosition;
+                cout<<"To ?:";
+                EndPosition = ScanInput();
+                ValidMove = I->Move(EndPosition.X,EndPosition.Y);
+                //removing if attack happend.
+                //looking if this keeps you in check
+                //reset gamefield if move is invalid
+                break;
+            }
+        }
+
+        //returning errors
+        if(!FoundPiece){cout<<"Selected invalid piece"<<endl;}
+
+        if(!ValidMove){cout<<"invalid Move"<<endl;}
+
+        if(FoundPiece && ValidMove)
+        {
+            cout<<"Valid"<<endl;
+            TurnCompleted = true;
         }
     }
-    if(!FoundPiece){cout<<"Selected invalid piece"<<endl;}
+    cout<<"out of while"<<endl;
     TurnTracker = !TurnTracker;
 }
+
+
 
 

@@ -1,53 +1,62 @@
 #include "pawn.h"
 #include "gamemanager.h"
 
+bool Pawn::Attack(int X, int Y)
+{
+    if(GetColor())
+    {
+        if(((GetPosX() - X == -1)||(GetPosX() - X == 1))&&(GetPosY()-Y == 1)&&GetGameManager()->AbleToAttack(X,Y))
+        {
+            SetPosX(X);
+            SetPosY(Y);
+            FirstMove = false;
+            return true;
+        }
+    }
+    else
+    {
+        if(((GetPosX() - X == -1)||(GetPosX() - X == 1))&&(GetPosY()-Y == -1)&&GetGameManager()->AbleToAttack(X,Y))
+        {
+            SetPosX(X);
+            SetPosY(Y);
+            FirstMove = false;
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Pawn::Forward(int X, int Y)
+{
+    cout<<"debug"<<GetPosX() - X<<GetPosY()-Y;
+    if(GetColor())
+    {
+        if((GetPosX() - X == 0)&&((GetPosY()-Y == 1)||((GetPosY()-Y == 2)&&FirstMove))&&!GetGameManager()->AbleToAttack(X,Y)&&!GetGameManager()->IsBlocked(X,Y))
+        {
+            FirstMove = false;
+            return true;
+        }
+    }
+    else
+    {
+        if((GetPosX() - X == 0)&&((GetPosY()-Y == -1)||((GetPosY()-Y == -2)&&FirstMove))&&!GetGameManager()->AbleToAttack(X,Y)&&!GetGameManager()->IsBlocked(X,Y))
+        {
+            cout<<"debug";
+            FirstMove = false;
+            return true;
+        }
+    }
+    return false;
+}
+
 bool Pawn::Move(int X, int Y)
 {
-//    GetGameManager()->AbleToAttack();
-//    if((-1<X)&&(X<8)&&(-1<Y)&&(Y<8)) //checking if the move is out of bounds
-//    {
-//        if(GetColor())  //black
-//        {
-//            switch (GetPosY()-Y) {
-//            case 2:
-//                if((GetPosX() == X)&&FirstMove&&/*not something obstucting*/){
-//                    FirstMove = false;
-//                    SetPosX(X);
-//                    SetPosY(Y);
-//                    return true;}
-//                break;
-//            case 1:
-//                if(((GetPosX() == X)&&/*not something obstucting*/)||(((GetPosX()-X == -1)||(GetPosX()-X == 1))&&/*something to attac*/)){
-//                    FirstMove = false;
-//                    SetPosX(X);
-//                    SetPosY(Y);
-//                    return true;}
-//                break;
-//            default:
-//                break;
-//            }
-//        }
-//        else            //white
-//        {
-//            switch (Y-GetPosY()) {
-//            case 2:
-//                if((GetPosX() == X)&&FirstMove&&/*not something obstucting*/){
-//                    FirstMove = false;
-//                    SetPosX(X);
-//                    SetPosY(Y);
-//                    return true;}
-//                break;
-//            case 1:
-//                if(((GetPosX() == X)&&/*not something obstucting*/)||(((GetPosX()-X == -1)||(GetPosX()-X == 1))&&/*something to attac*/)){
-//                    FirstMove = false;
-//                    SetPosX(X);
-//                    SetPosY(Y);
-//                    return true;}
-//                break;
-//            default:
-//                break;
-//            }
-//        }
-//    }
-    return false;
+    if(Forward(X,Y)||Attack(X,Y))
+    {
+        SetPosX(X);
+        SetPosY(Y);
+        cout<<"debug"<<GetPosX()<<GetPosY();
+        return true;
+    }
+    else{return false;}
 }

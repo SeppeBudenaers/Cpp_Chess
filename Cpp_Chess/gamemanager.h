@@ -19,11 +19,16 @@ public:
 
     void InitializingGame();
     void PrintGamePiecePosistion();
-    void PlayerInput();
+    void Turn();
 private:
-    int CharToInt(char input);
-    bool TurnTracker = false;
-    enum Xcordinantes
+    struct coordinates
+    {
+        int X;
+        int Y;
+
+    };
+
+    enum Xcoordinantes
     {
         a,
         b,
@@ -35,5 +40,10 @@ private:
         h
     };
     vector<ChessPiece*> vect;
+
+    coordinates ScanInput();
+    int CharToInt(char input);
+    bool OutOfBounds(int X,int Y);
+    bool TurnTracker = false;
 };
 #endif // GAMEMANAGER_H

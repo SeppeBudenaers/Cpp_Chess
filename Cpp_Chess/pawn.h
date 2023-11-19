@@ -8,6 +8,8 @@ class Pawn : public ChessPiece
 {
 public:
     Pawn(int X,int Y, bool Color, GameManager* GameManager) : ChessPiece(X,Y,Color,GameManager)   {}
+    bool Attack(int X, int Y);
+    bool Forward(int X, int Y);
     bool Move(int X, int Y);
 private:
     bool FirstMove = true;
