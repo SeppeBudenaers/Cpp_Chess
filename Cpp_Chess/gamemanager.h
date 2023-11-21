@@ -18,7 +18,7 @@ private:
         int X;
         int Y;
     };
-    GameBoard gameboard;
+    GameField gamefield;
     coordinates ScanInput();
     int CharToInt(char input);
     bool OutOfBounds(int X,int Y);

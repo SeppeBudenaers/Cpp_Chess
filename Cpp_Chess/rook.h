@@ -5,7 +5,9 @@
 class Rook : public ChessPiece
 {
 public:
-    Rook(int X,int Y, bool Color, GameBoard* gameboard) : ChessPiece(X,Y,Color,gameboard)   {}
+    Rook(int X,int Y, bool Color, GameField*gamefield) : ChessPiece(X,Y,Color,gamefield)   {}
+    bool UpAndDown(int X, int Y);
+    bool LeftAndRight(int X, int Y);
     bool Move(int X, int Y);
 };
 

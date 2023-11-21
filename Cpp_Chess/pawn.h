@@ -3,11 +3,10 @@
 
 #include "chesspiece.h"
 
-
 class Pawn : public ChessPiece
 {
 public:
-    Pawn(int X,int Y, bool Color, GameBoard* gameboard) : ChessPiece(X,Y,Color,gameboard)   {}
+    Pawn(int X,int Y, bool Color, GameField*gamefield) : ChessPiece(X,Y,Color,gamefield)   {}
     bool Attack(int X, int Y);
     bool Forward(int X, int Y);
     bool Move(int X, int Y);

@@ -41,7 +41,7 @@ int GameManager::CharToInt(char Input)
 
 bool GameManager::OutOfBounds(int X, int Y)
 {
-    if((-1<X)&&(X<8)&&(-1<Y)&&(Y<8))
+    if((-1<X)&&(X<8)&&(0<Y)&&(Y<9))
     {
         return false;
     }
@@ -67,7 +67,7 @@ GameManager::coordinates GameManager::ScanInput()
 
 void GameManager::PrintGamePiecePosistion()
 {
-    for (ChessPiece* I : gameboard.GetVector()) {
+    for (ChessPiece* I : gamefield.GetVector()) {
         cout<<"Co ords of game piece is : ";
         switch (I->GetPosX()) {
         case 0:
@@ -108,14 +108,14 @@ void GameManager::Turn()
     bool ValidMove = false;
     while(!TurnCompleted)
     {
-        if(gameboard.GetTurn()){cout<<"Blacks turn"<<endl<<"Please enter pawn that you want to move :";}
+        if(gamefield.GetTurn()){cout<<"Blacks turn"<<endl<<"Please enter pawn that you want to move :";}
         else{cout<<"Whites turn"<<endl<<"Please enter pawn that you want to move :";}
 
         coordinates BeginPosition;
         BeginPosition = ScanInput();
-        for (ChessPiece* I :gameboard.GetVector())
+        for (ChessPiece* I :gamefield.GetVector())
         {
-        if((I->GetPosX() == BeginPosition.X )&&(I->GetPosY() == BeginPosition.Y)&&(I->GetColor() == gameboard.GetTurn())){
+        if((I->GetPosX() == BeginPosition.X )&&(I->GetPosY() == BeginPosition.Y)&&(I->GetColor() == gamefield.GetTurn())){
                 FoundPiece = true;
                 coordinates EndPosition;
                 cout<<"To ?:";
@@ -140,7 +140,7 @@ void GameManager::Turn()
         }
     }
     cout<<"out of while"<<endl;
-    gameboard.SetTurn(!gameboard.GetTurn());
+    gamefield.SetTurn(!gamefield.GetTurn());
 }
 
 

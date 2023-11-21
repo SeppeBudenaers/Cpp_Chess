@@ -1,6 +1,6 @@
 #include "gameboard.h"
 
-bool GameBoard::AbleToAttack(int X, int Y) const
+bool GameField::AbleToAttack(int X, int Y) const
 {
     for (ChessPiece* I :vect){
         if((I->GetPosX() == X )&&(I->GetPosY() == Y)&&(I->GetColor() != TurnTracker)){return true;}
@@ -8,14 +8,14 @@ bool GameBoard::AbleToAttack(int X, int Y) const
     return false;
 }
 
-bool GameBoard::IsBlocked(int X, int Y) const
+bool GameField::IsBlocked(int X, int Y) const
 {
     for (ChessPiece* I :vect){
         if((I->GetPosX() == X )&&(I->GetPosY() == Y)&&(I->GetColor() == TurnTracker)){return true;}
     }
     return false;
 }
-void GameBoard::InitializingGame()
+void GameField::InitializingGame()
 {
     for (int I = 0; I < 2; ++I) {
         int Y = 1;
@@ -29,8 +29,8 @@ void GameBoard::InitializingGame()
         vect.push_back(new Bishop(f,Y,I,this));
         vect.push_back(new King(e,Y,I,this));
         vect.push_back(new Queen(d,Y,I,this));
-        for (int var = 0; var < 8; ++var) {
-            vect.push_back(new Pawn(var,YPawn,I,this));
-        }
+//        for (int var = 0; var < 8; ++var) {
+//            vect.push_back(new Pawn(var,YPawn,I,this));
+//        }
     }
 }

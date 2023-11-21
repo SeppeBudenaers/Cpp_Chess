@@ -9,10 +9,10 @@
 #include "queen.h"
 #include "pawn.h"
 using namespace std;
-class GameBoard
+class GameField
 {
 public:
-    GameBoard(){InitializingGame();}
+    GameField(){InitializingGame();}
     std::vector<ChessPiece*> GetVector ()   {return vect;}
     bool GetTurn ()                         {return TurnTracker;}
     void SetTurn (bool Turn)                {TurnTracker = Turn;} // kan ik deze beter beveiligen
