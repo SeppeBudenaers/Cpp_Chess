@@ -12,9 +12,10 @@ using namespace std;
 class GameBoard
 {
 public:
+    GameBoard(){InitializingGame();}
     std::vector<ChessPiece*> GetVector ()   {return vect;}
     bool GetTurn ()                         {return TurnTracker;}
-    void SetTurn (bool Turn)                {TurnTracker = Turn;}
+    void SetTurn (bool Turn)                {TurnTracker = Turn;} // kan ik deze beter beveiligen
     bool AbleToAttack(int X, int Y) const;
     bool IsBlocked(int X, int Y) const;
     void InitializingGame();

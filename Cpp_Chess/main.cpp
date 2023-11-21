@@ -7,7 +7,7 @@ using namespace std;
 int main()
 {
     GameManager gamemanager;
-    gamemanager.InitializingGame();
+    //gamemanager.InitializingGame();
     gamemanager.PrintGamePiecePosistion();
     gamemanager.Turn();
     gamemanager.PrintGamePiecePosistion();

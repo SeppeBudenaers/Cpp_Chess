@@ -65,11 +65,6 @@ GameManager::coordinates GameManager::ScanInput()
     return  Input;
 }
 
-void GameManager::InitializingGame()
-{
-    gameboard.InitializingGame();
-}
-
 void GameManager::PrintGamePiecePosistion()
 {
     for (ChessPiece* I : gameboard.GetVector()) {

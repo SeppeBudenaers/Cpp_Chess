@@ -10,7 +10,6 @@ class GameManager
 {
 public:
     GameManager(){}
-    void InitializingGame();
     void PrintGamePiecePosistion();
     void Turn();
 private:
