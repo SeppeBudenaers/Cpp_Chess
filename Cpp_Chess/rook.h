@@ -8,7 +8,7 @@ public:
     Rook(int X,int Y, bool Color, GameField*gamefield) : ChessPiece(X,Y,Color,gamefield)   {}
     bool UpAndDown(int X, int Y);
     bool LeftAndRight(int X, int Y);
-    bool Move(int X, int Y);
+    bool Move(int X, int Y); //polymorphism because the Move function is diffrent for each child
 };
 
 #endif // ROOK_H
