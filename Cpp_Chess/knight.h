@@ -5,7 +5,7 @@
 class Knight : public ChessPiece
 {
 public:
-    Knight(int X,int Y, bool Color, GameManager* GameManager) : ChessPiece(X,Y,Color,GameManager)   {}
+    Knight(int X,int Y, bool Color, GameBoard* gameboard) : ChessPiece(X,Y,Color,gameboard)   {}
     bool Move(int X, int Y);
 };
 

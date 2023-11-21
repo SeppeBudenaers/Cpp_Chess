@@ -2,5 +2,5 @@
 
 bool King::Move(int X, int Y)
 {
-
+    return false;
 }

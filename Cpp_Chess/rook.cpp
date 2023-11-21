@@ -2,5 +2,5 @@
 
 bool Rook::Move(int X, int Y)
 {
-
+    return false;
 }

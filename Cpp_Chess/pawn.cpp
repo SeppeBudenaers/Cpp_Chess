@@ -1,11 +1,11 @@
 #include "pawn.h"
-#include "gamemanager.h"
+#include "gameboard.h"
 
 bool Pawn::Attack(int X, int Y)
 {
     if(GetColor())
     {
-        if(((GetPosX() - X == -1)||(GetPosX() - X == 1))&&(GetPosY()-Y == 1)&&GetGameManager()->AbleToAttack(X,Y))
+        if(((GetPosX() - X == -1)||(GetPosX() - X == 1))&&(GetPosY()-Y == 1)&&GetGameBoard()->AbleToAttack(X,Y))
         {
             SetPosX(X);
             SetPosY(Y);
@@ -15,7 +15,7 @@ bool Pawn::Attack(int X, int Y)
     }
     else
     {
-        if(((GetPosX() - X == -1)||(GetPosX() - X == 1))&&(GetPosY()-Y == -1)&&GetGameManager()->AbleToAttack(X,Y))
+        if(((GetPosX() - X == -1)||(GetPosX() - X == 1))&&(GetPosY()-Y == -1)&&GetGameBoard()->AbleToAttack(X,Y))
         {
             SetPosX(X);
             SetPosY(Y);
@@ -31,7 +31,7 @@ bool Pawn::Forward(int X, int Y)
     cout<<"debug"<<GetPosX() - X<<GetPosY()-Y;
     if(GetColor())
     {
-        if((GetPosX() - X == 0)&&((GetPosY()-Y == 1)||((GetPosY()-Y == 2)&&FirstMove))&&!GetGameManager()->AbleToAttack(X,Y)&&!GetGameManager()->IsBlocked(X,Y))
+        if((GetPosX() - X == 0)&&((GetPosY()-Y == 1)||((GetPosY()-Y == 2)&&FirstMove))&&!GetGameBoard()->AbleToAttack(X,Y)&&!GetGameBoard()->IsBlocked(X,Y))
         {
             FirstMove = false;
             return true;
@@ -39,7 +39,7 @@ bool Pawn::Forward(int X, int Y)
     }
     else
     {
-        if((GetPosX() - X == 0)&&((GetPosY()-Y == -1)||((GetPosY()-Y == -2)&&FirstMove))&&!GetGameManager()->AbleToAttack(X,Y)&&!GetGameManager()->IsBlocked(X,Y))
+        if((GetPosX() - X == 0)&&((GetPosY()-Y == -1)||((GetPosY()-Y == -2)&&FirstMove))&&!GetGameBoard()->AbleToAttack(X,Y)&&!GetGameBoard()->IsBlocked(X,Y))
         {
             cout<<"debug";
             FirstMove = false;
@@ -60,3 +60,4 @@ bool Pawn::Move(int X, int Y)
     }
     else{return false;}
 }
+

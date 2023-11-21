@@ -2,5 +2,5 @@
 
 bool Bishop::Move(int X, int Y)
 {
-
+    return false;
 }

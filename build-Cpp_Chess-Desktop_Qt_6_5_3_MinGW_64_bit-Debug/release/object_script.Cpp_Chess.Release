@@ -1,0 +1,10 @@
+release/bishop.o
+release/chesspiece.o
+release/gameboard.o
+release/gamemanager.o
+release/king.o
+release/knight.o
+release/main.o
+release/pawn.o
+release/queen.o
+release/rook.o

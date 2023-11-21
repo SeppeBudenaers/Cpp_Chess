@@ -2,5 +2,5 @@
 
 bool Queen::Move(int X, int Y)
 {
-
+    return false;
 }
