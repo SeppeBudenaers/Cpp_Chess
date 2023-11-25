@@ -7,10 +7,10 @@ class Pawn : public ChessPiece
 {
 public:
     Pawn(int X,int Y, bool Color, GameField*gamefield) : ChessPiece(X,Y,Color,gamefield)   {}
-    bool Attack(int X, int Y);
-    bool Forward(int X, int Y);
     bool Move(int X, int Y);
 private:
+    bool Attack(int X, int Y);
+    bool Forward(int X, int Y);
     bool FirstMove = true;
 };
 
