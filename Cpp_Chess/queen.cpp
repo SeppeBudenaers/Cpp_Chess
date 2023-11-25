@@ -61,7 +61,7 @@ bool Queen::LeftAndRight(int X, int Y)
     return false;
 }
 
-bool Queen::diagonal(int X, int Y)
+bool Queen::Diagonal(int X, int Y)
 {
     bool ValidMove = true;
     if((abs(GetPosX()-X) == abs(GetPosY()-Y)) && ((GetPosX()-X) != 0))
@@ -131,7 +131,7 @@ bool Queen::diagonal(int X, int Y)
 
 bool Queen::Move(int X, int Y)
 {
-    if(LeftAndRight(X,Y)||UpAndDown(X,Y))
+    if(LeftAndRight(X,Y)||UpAndDown(X,Y)||Diagonal(X,Y))
     {
         SetPosX(X);
         SetPosY(Y);

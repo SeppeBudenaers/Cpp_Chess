@@ -27,8 +27,8 @@ void GameField::InitializingGame()
         vect.push_back(new Knight(g,Y,I,this));
         vect.push_back(new Bishop(c,Y,I,this));
         vect.push_back(new Bishop(f,Y,I,this));
-        vect.push_back(new King(e,Y,I,this));
-        vect.push_back(new Queen(d,Y,I,this));
+        vect.push_back(new King(d,Y,I,this));
+        vect.push_back(new Queen(e,Y,I,this));
         for (int var = 0; var < 8; ++var) {
             vect.push_back(new Pawn(var,YPawn,I,this));
         }

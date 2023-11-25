@@ -10,6 +10,7 @@ public:
 private:
     bool UpAndDown(int X, int Y);
     bool LeftAndRight(int X, int Y);
+    bool Diagonal(int X, int Y);
 };
 
 #endif // QUEEN_H
