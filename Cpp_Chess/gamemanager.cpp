@@ -104,6 +104,7 @@ void GameManager::Turn()
 {
     //flags
     bool TurnCompleted = false;
+    bool SamePiece = false;
     bool FoundPiece = false;
     bool ValidMove = false;
     while(!TurnCompleted)
@@ -120,11 +121,15 @@ void GameManager::Turn()
                 coordinates EndPosition;
                 cout<<"To ?:";
                 EndPosition = ScanInput();
-                ValidMove = I->Move(EndPosition.X,EndPosition.Y);
-                //removing if attack happend. maybe a "To remove flag" so i don't check it, when checking if it is check this turn
-                //looking if this keeps you in check
-                //reset gamefield if move is invalid
-                break;
+                if((BeginPosition.X != EndPosition.X)&&(BeginPosition.Y != EndPosition.Y))
+                {
+                    ValidMove = I->Move(EndPosition.X,EndPosition.Y);
+                    //removing if attack happend. maybe a "To remove flag" so i don't check it, when checking if it is check this turn
+                    //looking if this keeps you in check
+                    //reset gamefield if move is invalid
+                    break;
+                }
+                else{SamePiece = true;}
             }
         }
 
@@ -133,7 +138,9 @@ void GameManager::Turn()
 
         if(!ValidMove){cout<<"invalid Move"<<endl;}
 
-        if(FoundPiece && ValidMove)
+        if(SamePiece){cout<<"Selected Same coordiantes"<<endl;}
+
+        if(FoundPiece && ValidMove&&!SamePiece)
         {
             cout<<"Valid"<<endl;
             TurnCompleted = true;

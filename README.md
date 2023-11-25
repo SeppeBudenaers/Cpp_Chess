@@ -13,7 +13,7 @@
 ## Movement of chess pieces 
 
 - [x] Pawn
-- [ ] Knight
+- [x] Knight
 - [x] King 
 - [x] Queen 
 - [x] Rook 
