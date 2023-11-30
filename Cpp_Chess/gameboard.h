@@ -17,6 +17,7 @@ public:
     std::vector<ChessPiece*> GetVector ()   {return CurrentState ;}
     bool GetTurn ()                         {return TurnTracker;}
     void SetTurn (bool Turn)                {TurnTracker = Turn;} // kan ik deze beter beveiligen
+    void RemovePiece(int X, int Y,bool Color);
     bool AbleToAttack(int X, int Y,bool Color) const;
     bool IsBlocked(int X, int Y,bool Color) const;
 

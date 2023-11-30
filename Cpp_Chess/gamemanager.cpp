@@ -104,7 +104,6 @@ void GameManager::Turn()
 {
     bool TurnCompleted = false;
 
-
     while(!TurnCompleted)
     {
         //flags
@@ -115,11 +114,12 @@ void GameManager::Turn()
         bool Check = false;
 
         vector<ChessPiece*> list = gamefield.GetVector();
+        coordinates EndPosition;
+        coordinates BeginPosition;
 
         //begin postion
         if(gamefield.GetTurn()){cout<<"Blacks turn"<<endl<<"Please enter pawn that you want to move :";}
         else{cout<<"Whites turn"<<endl<<"Please enter pawn that you want to move :";}
-        coordinates BeginPosition;
         BeginPosition = ScanInput();
 
         for (ChessPiece* I :list)
@@ -128,7 +128,7 @@ void GameManager::Turn()
                 FoundPiece = true;
 
                 //end position
-                coordinates EndPosition;
+
                 cout<<"To ?:";
                 EndPosition = ScanInput();
                 if(!((BeginPosition.X == EndPosition.X)&&(BeginPosition.Y == EndPosition.Y)))
@@ -188,6 +188,10 @@ void GameManager::Turn()
         {
             cout<<"Valid"<<endl;
             TurnCompleted = true;
+            if(RemovingPiece)
+            {
+            gamefield.RemovePiece(EndPosition.X,EndPosition.Y,!gamefield.GetTurn());
+            }
         }
     }
     cout<<"out of while"<<endl;

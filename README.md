@@ -4,8 +4,8 @@
 ## Functions
 - [ ] Printing a proper game board
 - [x] Checking for check
-- [ ] **Removing pieces once attacked**
-- [ ] **Restoring gamefield when invalid move is made **
+- [x] Removing pieces once attacked
+- [x] Restoring gamefield when invalid move is made
 - [ ] Special moves (promoting pawns/ En passant/casteling)
 - [ ] User input like -h (for help) or -r (to resign).
 - [x] Adding deconstructors
