@@ -9,7 +9,7 @@ bool Queen::UpAndDown(int X, int Y)
         if(Y < GetPosY())
         {
             for (int I = GetPosY()-1 ; I >= Y; --I) {
-                if(GetGameField()->IsBlocked(X,I)||(GetGameField()->AbleToAttack(X,I) && !(I == Y)))
+                if(GetGameField()->IsBlocked(X,I,GetColor())||(GetGameField()->AbleToAttack(X,I,GetColor()) && !(I == Y)))
                 {
                     ValidMove = false;
                     break;
@@ -19,7 +19,7 @@ bool Queen::UpAndDown(int X, int Y)
         else
         {
             for (int I = GetPosY()+1 ; I <= Y; ++I) {
-                if(GetGameField()->IsBlocked(X,I)||(GetGameField()->AbleToAttack(X,I) && !(I == Y)))
+                if(GetGameField()->IsBlocked(X,I,GetColor())||(GetGameField()->AbleToAttack(X,I,GetColor()) && !(I == Y)))
                 {
                     ValidMove = false;
                     break;
@@ -39,7 +39,7 @@ bool Queen::LeftAndRight(int X, int Y)
         if(X < GetPosX())
         {
             for (int I = GetPosX()-1 ; I >= X; --I) {
-                if(GetGameField()->IsBlocked(I,Y)||(GetGameField()->AbleToAttack(I,Y) && !(I == X)))
+                if(GetGameField()->IsBlocked(I,Y,GetColor())||(GetGameField()->AbleToAttack(I,Y,GetColor()) && !(I == X)))
                 {
                     ValidMove = false;
                     break;
@@ -49,7 +49,7 @@ bool Queen::LeftAndRight(int X, int Y)
         else
         {
             for (int I = GetPosX()+1 ; I <= X; ++I) {
-                if(GetGameField()->IsBlocked(I,Y)||(GetGameField()->AbleToAttack(I,Y) && !(I == X)))
+                if(GetGameField()->IsBlocked(I,Y,GetColor())||(GetGameField()->AbleToAttack(I,Y,GetColor()) && !(I == X)))
                 {
                     ValidMove = false;
                     break;
@@ -73,8 +73,7 @@ bool Queen::Diagonal(int X, int Y)
                 for (int I = 1 ; I <= abs(GetPosY()-Y); ++I) {
                     int Xchecking = GetPosX() + I;
                     int Ychecking = GetPosY() + I;
-                    std::cout<<"debug : "<< Xchecking <<" "<<Ychecking<<std::endl;
-                    if(GetGameField()->IsBlocked(Xchecking,Ychecking )||(GetGameField()->AbleToAttack(Xchecking,Ychecking ) && !(Ychecking  == Y)))
+                    if(GetGameField()->IsBlocked(Xchecking,Ychecking ,GetColor())||(GetGameField()->AbleToAttack(Xchecking,Ychecking ,GetColor()) && !(Ychecking  == Y)))
                     {
                         ValidMove = false;
                         break;
@@ -86,8 +85,7 @@ bool Queen::Diagonal(int X, int Y)
                 for (int I = 1 ; I <= abs(GetPosY()-Y); ++I) {
                     int Xchecking = GetPosX() - I;
                     int Ychecking = GetPosY() + I;
-                    std::cout<<"debug : "<< Xchecking <<" "<<Ychecking<<std::endl;
-                    if(GetGameField()->IsBlocked(Xchecking,Ychecking )||(GetGameField()->AbleToAttack(Xchecking,Ychecking ) && !(Ychecking  == Y)))
+                    if(GetGameField()->IsBlocked(Xchecking,Ychecking ,GetColor())||(GetGameField()->AbleToAttack(Xchecking,Ychecking ,GetColor()) && !(Ychecking  == Y)))
                     {
                         ValidMove = false;
                         break;
@@ -102,8 +100,7 @@ bool Queen::Diagonal(int X, int Y)
                 for (int I = 1 ; I <= abs(GetPosY()-Y); ++I) {
                     int Xchecking = GetPosX() + I;
                     int Ychecking = GetPosY() - I;
-                    std::cout<<"debug : "<< Xchecking <<" "<<Ychecking<<std::endl;
-                    if(GetGameField()->IsBlocked(Xchecking,Ychecking )||(GetGameField()->AbleToAttack(Xchecking,Ychecking ) && !(Ychecking  == Y)))
+                    if(GetGameField()->IsBlocked(Xchecking,Ychecking ,GetColor())||(GetGameField()->AbleToAttack(Xchecking,Ychecking ,GetColor()) && !(Ychecking  == Y)))
                     {
                         ValidMove = false;
                         break;
@@ -115,8 +112,7 @@ bool Queen::Diagonal(int X, int Y)
                 for (int I = 1 ; I <= abs(GetPosY()-Y); ++I) {
                     int Xchecking = GetPosX() - I;
                     int Ychecking = GetPosY() - I;
-                    std::cout<<"debug : "<< Xchecking <<" "<<Ychecking<<std::endl;
-                    if(GetGameField()->IsBlocked(Xchecking,Ychecking )||(GetGameField()->AbleToAttack(Xchecking,Ychecking ) && !(Ychecking  == Y)))
+                    if(GetGameField()->IsBlocked(Xchecking,Ychecking ,GetColor())||(GetGameField()->AbleToAttack(Xchecking,Ychecking ,GetColor()) && !(Ychecking  == Y)))
                     {
                         ValidMove = false;
                         break;
@@ -135,6 +131,15 @@ bool Queen::Move(int X, int Y)
     {
         SetPosX(X);
         SetPosY(Y);
+        return true;
+    }
+    return false;
+}
+
+bool Queen::CheckingValidMove(int X, int Y)
+{
+    if(LeftAndRight(X,Y)||UpAndDown(X,Y)||Diagonal(X,Y))
+    {
         return true;
     }
     return false;

@@ -102,31 +102,73 @@ void GameManager::PrintGamePiecePosistion()
 
 void GameManager::Turn()
 {
-    //flags
     bool TurnCompleted = false;
-    bool SamePiece = false;
-    bool FoundPiece = false;
-    bool ValidMove = false;
+
+
     while(!TurnCompleted)
     {
+        //flags
+        bool SamePiece = false;
+        bool FoundPiece = false;
+        bool ValidMove = false;
+        bool RemovingPiece = false;
+        bool Check = false;
+
+        vector<ChessPiece*> list = gamefield.GetVector();
+
+        //begin postion
         if(gamefield.GetTurn()){cout<<"Blacks turn"<<endl<<"Please enter pawn that you want to move :";}
         else{cout<<"Whites turn"<<endl<<"Please enter pawn that you want to move :";}
-
         coordinates BeginPosition;
         BeginPosition = ScanInput();
-        for (ChessPiece* I :gamefield.GetVector())
+
+        for (ChessPiece* I :list)
         {
         if((I->GetPosX() == BeginPosition.X )&&(I->GetPosY() == BeginPosition.Y)&&(I->GetColor() == gamefield.GetTurn())){
                 FoundPiece = true;
+
+                //end position
                 coordinates EndPosition;
                 cout<<"To ?:";
                 EndPosition = ScanInput();
-                if((BeginPosition.X != EndPosition.X)&&(BeginPosition.Y != EndPosition.Y))
+                if(!((BeginPosition.X == EndPosition.X)&&(BeginPosition.Y == EndPosition.Y)))
                 {
                     ValidMove = I->Move(EndPosition.X,EndPosition.Y);
-                    //removing if attack happend. maybe a "To remove flag" so i don't check it, when checking if it is check this turn
-                    //looking if this keeps you in check
-                    //reset gamefield if move is invalid
+
+                    //if attack happend removing chess piece out of temp list
+                    int pos = 0;
+                    for (ChessPiece* I :list)
+                    {
+                        if((I->GetPosX() == EndPosition.X )&&(I->GetPosY() == EndPosition.Y)&&(I->GetColor() != gamefield.GetTurn()))
+                        {
+                            RemovingPiece = true;
+                            break;
+                        }
+                        pos++;
+                    }
+                    if(RemovingPiece){list.erase(list.begin()+pos);}
+
+                    //looking if you are standing check
+                    int KingPosX = 0;
+                    int KingPosY = 0;
+                    for (ChessPiece* I :list)
+                    {
+                        if((I->GetColor() == gamefield.GetTurn())&&I->IsKing())
+                        {
+                            KingPosX = I->GetPosX();
+                            KingPosY = I->GetPosY();
+                            cout<<"debug King:"<<I->GetPosX()<<I->GetPosY()<<endl;
+                            break;
+                        }
+                    }
+                    for (ChessPiece* I :list)
+                    {
+                        if((I->GetColor() !=gamefield.GetTurn()) && I->CheckingValidMove(KingPosX,KingPosY))
+                        {
+                            cout<<"debug check:"<<I->GetPosX()<<I->GetPosY()<<endl;
+                            Check = true;
+                        }
+                    }
                     break;
                 }
                 else{SamePiece = true;}
@@ -140,13 +182,16 @@ void GameManager::Turn()
 
         if(SamePiece){cout<<"Selected Same coordiantes"<<endl;}
 
-        if(FoundPiece && ValidMove&&!SamePiece)
+        if(Check){cout<<"Standing check"<<endl;}
+
+        if(FoundPiece && ValidMove && !SamePiece && !Check)
         {
             cout<<"Valid"<<endl;
             TurnCompleted = true;
         }
     }
     cout<<"out of while"<<endl;
+    // actualy remove the attacked item if there is one
     gamefield.SetTurn(!gamefield.GetTurn());
 }
 

@@ -12,13 +12,15 @@ using namespace std;
 class GameField
 {
 public:
-    GameField(){InitializingGame();}
-    std::vector<ChessPiece*> GetVector ()   {return vect;}
+    GameField();
+
+    std::vector<ChessPiece*> GetVector ()   {return CurrentState ;}
     bool GetTurn ()                         {return TurnTracker;}
     void SetTurn (bool Turn)                {TurnTracker = Turn;} // kan ik deze beter beveiligen
-    bool AbleToAttack(int X, int Y) const;
-    bool IsBlocked(int X, int Y) const;
-    void InitializingGame();
+    bool AbleToAttack(int X, int Y,bool Color) const;
+    bool IsBlocked(int X, int Y,bool Color) const;
+
+    ~GameField();
 private:
     enum Xcoordinantes
     {
@@ -31,7 +33,7 @@ private:
         g,
         h
     };
-    std::vector<ChessPiece*> vect;
+    std::vector<ChessPiece*> CurrentState;
     bool TurnTracker = false;
 };
 

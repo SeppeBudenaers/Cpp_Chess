@@ -10,8 +10,11 @@ class GameManager
 {
 public:
     GameManager(){}
+
     void PrintGamePiecePosistion();
     void Turn();
+
+    ~GameManager() {}
 private:
     struct coordinates
     {

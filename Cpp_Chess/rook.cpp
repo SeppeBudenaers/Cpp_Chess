@@ -9,7 +9,7 @@ bool Rook::UpAndDown(int X, int Y)
         if(Y < GetPosY())
         {
             for (int I = GetPosY()-1 ; I >= Y; --I) {
-                if(GetGameField()->IsBlocked(X,I)||(GetGameField()->AbleToAttack(X,I) && !(I == Y)))
+                if(GetGameField()->IsBlocked(X,I,GetColor())||(GetGameField()->AbleToAttack(X,I,GetColor()) && !(I == Y)))
                 {
                     ValidMove = false;
                     break;
@@ -19,7 +19,7 @@ bool Rook::UpAndDown(int X, int Y)
         else
         {
             for (int I = GetPosY()+1 ; I <= Y; ++I) {
-                if(GetGameField()->IsBlocked(X,I)||(GetGameField()->AbleToAttack(X,I) && !(I == Y)))
+                if(GetGameField()->IsBlocked(X,I,GetColor())||(GetGameField()->AbleToAttack(X,I,GetColor()) && !(I == Y)))
                 {
                     ValidMove = false;
                     break;
@@ -39,7 +39,7 @@ bool Rook::LeftAndRight(int X, int Y)
         if(X < GetPosX())
         {
             for (int I = GetPosX()-1 ; I >= X; --I) {
-                if(GetGameField()->IsBlocked(I,Y)||(GetGameField()->AbleToAttack(I,Y) && !(I == X)))
+                if(GetGameField()->IsBlocked(I,Y,GetColor())||(GetGameField()->AbleToAttack(I,Y,GetColor()) && !(I == X)))
                 {
                     ValidMove = false;
                     break;
@@ -49,7 +49,7 @@ bool Rook::LeftAndRight(int X, int Y)
         else
         {
             for (int I = GetPosX()+1 ; I <= X; ++I) {
-                if(GetGameField()->IsBlocked(I,Y)||(GetGameField()->AbleToAttack(I,Y) && !(I == X)))
+                if(GetGameField()->IsBlocked(I,Y,GetColor())||(GetGameField()->AbleToAttack(I,Y,GetColor()) && !(I == X)))
                 {
                     ValidMove = false;
                     break;
@@ -67,6 +67,15 @@ bool Rook::Move(int X, int Y)
     {
         SetPosX(X);
         SetPosY(Y);
+        return true;
+    }
+    return false;
+}
+
+bool Rook::CheckingValidMove(int X, int Y)
+{
+    if(LeftAndRight(X,Y)||UpAndDown(X,Y))
+    {
         return true;
     }
     return false;

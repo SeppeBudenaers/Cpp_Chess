@@ -5,7 +5,7 @@ bool Pawn::Attack(int X, int Y)
 {
     if(GetColor())
     {
-        if(((GetPosX() - X == -1)||(GetPosX() - X == 1))&&(GetPosY()-Y == 1)&&GetGameField()->AbleToAttack(X,Y))
+        if(((GetPosX() - X == -1)||(GetPosX() - X == 1))&&(GetPosY()-Y == 1)&&GetGameField()->AbleToAttack(X,Y,GetColor()))
         {
             SetPosX(X);
             SetPosY(Y);
@@ -15,7 +15,7 @@ bool Pawn::Attack(int X, int Y)
     }
     else
     {
-        if(((GetPosX() - X == -1)||(GetPosX() - X == 1))&&(GetPosY()-Y == -1)&&GetGameField()->AbleToAttack(X,Y))
+        if(((GetPosX() - X == -1)||(GetPosX() - X == 1))&&(GetPosY()-Y == -1)&&GetGameField()->AbleToAttack(X,Y,GetColor()))
         {
             SetPosX(X);
             SetPosY(Y);
@@ -28,10 +28,9 @@ bool Pawn::Attack(int X, int Y)
 
 bool Pawn::Forward(int X, int Y)
 {
-    cout<<"debug"<<GetPosX() - X<<GetPosY()-Y;
     if(GetColor())
     {
-        if((GetPosX() - X == 0)&&((GetPosY()-Y == 1)||((GetPosY()-Y == 2)&&FirstMove))&&!GetGameField()->AbleToAttack(X,Y)&&!GetGameField()->IsBlocked(X,Y))
+        if((GetPosX() - X == 0)&&((GetPosY()-Y == 1)||((GetPosY()-Y == 2)&&FirstMove))&&!GetGameField()->AbleToAttack(X,Y,GetColor())&&!GetGameField()->IsBlocked(X,Y,GetColor()))
         {
             FirstMove = false;
             return true;
@@ -39,9 +38,8 @@ bool Pawn::Forward(int X, int Y)
     }
     else
     {
-        if((GetPosX() - X == 0)&&((GetPosY()-Y == -1)||((GetPosY()-Y == -2)&&FirstMove))&&!GetGameField()->AbleToAttack(X,Y)&&!GetGameField()->IsBlocked(X,Y))
+        if((GetPosX() - X == 0)&&((GetPosY()-Y == -1)||((GetPosY()-Y == -2)&&FirstMove))&&!GetGameField()->AbleToAttack(X,Y,GetColor())&&!GetGameField()->IsBlocked(X,Y,GetColor()))
         {
-            cout<<"debug";
             FirstMove = false;
             return true;
         }
@@ -55,9 +53,17 @@ bool Pawn::Move(int X, int Y)
     {
         SetPosX(X);
         SetPosY(Y);
-        cout<<"debug"<<GetPosX()<<GetPosY();
         return true;
     }
-    else{return false;}
+    return false;
+}
+
+bool Pawn::CheckingValidMove(int X, int Y)
+{
+    if(Forward(X,Y)||Attack(X,Y))
+    {
+        return true;
+    }
+    return false;
 }
 

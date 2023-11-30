@@ -2,7 +2,7 @@
 #include "gameboard.h"
 #include "math.h"
 #include <iostream>
-bool Bishop::Move(int X, int Y)
+bool Bishop::Moveset(int X, int Y)
 {
     bool ValidMove = true;
     if((abs(GetPosX()-X) == abs(GetPosY()-Y)) && ((GetPosX()-X) != 0))
@@ -14,8 +14,7 @@ bool Bishop::Move(int X, int Y)
                 for (int I = 1 ; I <= abs(GetPosY()-Y); ++I) {
                     int Xchecking = GetPosX() + I;
                     int Ychecking = GetPosY() + I;
-                    std::cout<<"debug : "<< Xchecking <<" "<<Ychecking<<std::endl;
-                    if(GetGameField()->IsBlocked(Xchecking,Ychecking )||(GetGameField()->AbleToAttack(Xchecking,Ychecking ) && !(Ychecking  == Y)))
+                    if(GetGameField()->IsBlocked(Xchecking,Ychecking, GetColor())||(GetGameField()->AbleToAttack(Xchecking,Ychecking,GetColor() ) && !(Ychecking  == Y)))
                     {
                         ValidMove = false;
                         break;
@@ -27,8 +26,7 @@ bool Bishop::Move(int X, int Y)
                 for (int I = 1 ; I <= abs(GetPosY()-Y); ++I) {
                     int Xchecking = GetPosX() - I;
                     int Ychecking = GetPosY() + I;
-                    std::cout<<"debug : "<< Xchecking <<" "<<Ychecking<<std::endl;
-                    if(GetGameField()->IsBlocked(Xchecking,Ychecking )||(GetGameField()->AbleToAttack(Xchecking,Ychecking ) && !(Ychecking  == Y)))
+                    if(GetGameField()->IsBlocked(Xchecking,Ychecking,GetColor() )||(GetGameField()->AbleToAttack(Xchecking,Ychecking,GetColor() ) && !(Ychecking  == Y)))
                     {
                         ValidMove = false;
                         break;
@@ -43,8 +41,7 @@ bool Bishop::Move(int X, int Y)
                 for (int I = 1 ; I <= abs(GetPosY()-Y); ++I) {
                     int Xchecking = GetPosX() + I;
                     int Ychecking = GetPosY() - I;
-                    std::cout<<"debug : "<< Xchecking <<" "<<Ychecking<<std::endl;
-                    if(GetGameField()->IsBlocked(Xchecking,Ychecking )||(GetGameField()->AbleToAttack(Xchecking,Ychecking ) && !(Ychecking  == Y)))
+                    if(GetGameField()->IsBlocked(Xchecking,Ychecking,GetColor() )||(GetGameField()->AbleToAttack(Xchecking,Ychecking,GetColor() ) && !(Ychecking  == Y)))
                     {
                         ValidMove = false;
                         break;
@@ -56,18 +53,39 @@ bool Bishop::Move(int X, int Y)
                 for (int I = 1 ; I <= abs(GetPosY()-Y); ++I) {
                     int Xchecking = GetPosX() - I;
                     int Ychecking = GetPosY() - I;
-                    std::cout<<"debug : "<< Xchecking <<" "<<Ychecking<<std::endl;
-                    if(GetGameField()->IsBlocked(Xchecking,Ychecking )||(GetGameField()->AbleToAttack(Xchecking,Ychecking ) && !(Ychecking  == Y)))
-                    {
+                    if(GetGameField()->IsBlocked(Xchecking,Ychecking,GetColor() )||(GetGameField()->AbleToAttack(Xchecking,Ychecking,GetColor() ) && !(Ychecking  == Y)))
+                    {;
                         ValidMove = false;
                         break;
                     }
                 }
             }
         }
-        SetPosX(X);
-        SetPosY(Y);
         return ValidMove;
     }
     return false;
 }
+
+bool Bishop::Move(int X, int Y)
+{
+
+    if(Moveset(X,Y))
+    {
+        SetPosX(X);
+        SetPosY(Y);
+        return true;
+    }
+    return false;
+}
+
+bool Bishop::CheckingValidMove(int X, int Y)
+{
+    cout<<"Bishop debug"<<Moveset(X,Y)<<endl;
+    if(Moveset(X,Y))
+    {
+        return true;
+    }
+    return false;
+}
+
+

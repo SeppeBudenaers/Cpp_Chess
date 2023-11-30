@@ -2,10 +2,18 @@
 #include "math.h"
 #include "gameboard.h"
 #include <iostream>
+bool King::Moveset(int X, int Y)
+{
+    if((abs(GetPosX()-X)<=1)&&(abs(GetPosY()-Y)<=1)&&!GetGameField()->IsBlocked(X,Y,GetColor()))
+    {
+        return true;
+    }
+    return false;
+}
+
 bool King::Move(int X, int Y)
 {
-    std::cout<<"Debug : "<<abs(GetPosX()-X) <<" "<<abs(GetPosY()-Y)<<" "<<GetGameField()->IsBlocked(X,Y)<<endl;
-    if((abs(GetPosX()-X)<=1)&&(abs(GetPosY()-Y)<=1)&&!GetGameField()->IsBlocked(X,Y))
+    if(Moveset(X,Y))
     {
         SetPosX(X);
         SetPosY(Y);
@@ -13,4 +21,12 @@ bool King::Move(int X, int Y)
     }
     return false;
 }
-//&&!((GetPosX() == X)&&(GetPosY() == Y))
+
+bool King::CheckingValidMove(int X, int Y)
+{
+    if(Moveset(X,Y))
+    {
+        return true;
+    }
+    return false;
+}
