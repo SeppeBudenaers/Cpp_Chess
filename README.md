@@ -7,7 +7,7 @@
 - [x] Removing pieces once attacked
 - [x] Restoring gamefield when invalid move is made
 - [ ] Special moves (promoting pawns/ En passant/casteling)
-- [ ] User input like -h (for help) or -r (to resign).
+- [ ] User input like -h (for help) or -r (to resign) -c (cancel).
 - [x] Adding deconstructors
 
 ## Movement of chess pieces 

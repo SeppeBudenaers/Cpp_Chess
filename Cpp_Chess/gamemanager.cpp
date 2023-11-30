@@ -56,7 +56,7 @@ GameManager::coordinates GameManager::ScanInput()
     bool CordinatesAquired = false;
     char charXinput= 0;
     coordinates Input;
-    while (!CordinatesAquired) {
+    while (!CordinatesAquired) { // bug dat cin geen tweede keer word gevraagt
         cin>>charXinput>>Input.Y;
         Input.X = CharToInt(charXinput);
         if(!OutOfBounds(Input.X,Input.Y)){CordinatesAquired = true;}
@@ -166,6 +166,7 @@ void GameManager::Turn()
                         if((I->GetColor() !=gamefield.GetTurn()) && I->CheckingValidMove(KingPosX,KingPosY))
                         {
                             cout<<"debug check:"<<I->GetPosX()<<I->GetPosY()<<endl;
+
                             Check = true;
                         }
                     }
@@ -190,12 +191,20 @@ void GameManager::Turn()
             TurnCompleted = true;
             if(RemovingPiece)
             {
-            gamefield.RemovePiece(EndPosition.X,EndPosition.Y,!gamefield.GetTurn());
+                gamefield.RemovePiece(EndPosition.X,EndPosition.Y,!gamefield.GetTurn());
             }
         }
+        else
+        {
+            for (ChessPiece* I :list){
+                if((I->GetPosX() == EndPosition.X )&&(I->GetPosY() == EndPosition.Y)&&(I->GetColor() == gamefield.GetTurn()))
+                {
+                    I->ResetMove(BeginPosition.X,BeginPosition.Y);
+                }
+            }
+
+        }
     }
-    cout<<"out of while"<<endl;
-    // actualy remove the attacked item if there is one
     gamefield.SetTurn(!gamefield.GetTurn());
 }
 

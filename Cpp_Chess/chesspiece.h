@@ -20,6 +20,7 @@ public:
 
     const GameField* GetGameField() const {return field;}
 
+    void ResetMove(int X, int Y){SetPosX(X);SetPosY(Y);}
     virtual bool Move(int X, int Y)	= 0;
     virtual bool CheckingValidMove(int X, int Y)	= 0;
 

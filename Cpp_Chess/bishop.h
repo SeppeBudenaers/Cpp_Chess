@@ -13,6 +13,7 @@ public:
     bool CheckingValidMove(int X, int Y);
 
     ~Bishop() {}
+
 private:
     bool Moveset(int X, int Y);
 };

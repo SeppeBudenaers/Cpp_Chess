@@ -29,9 +29,9 @@ GameField::GameField()
         CurrentState.push_back(new Bishop(f,Y,I,this));
         CurrentState.push_back(new King(e,Y,I,this));
         CurrentState.push_back(new Queen(d,Y,I,this));
-//        for (int var = 0; var < 8; ++var) {
-//            CurrentState.push_back(new Pawn(var,YPawn,I,this));
-//        }
+        for (int var = 0; var < 8; ++var) {
+            CurrentState.push_back(new Pawn(var,YPawn,I,this));
+        }
     }
 }
 

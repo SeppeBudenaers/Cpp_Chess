@@ -14,7 +14,9 @@ int main()
     gamemanager.PrintGamePiecePosistion();
     gamemanager.Turn();
     gamemanager.PrintGamePiecePosistion();
+    while(1){
     gamemanager.Turn();
     gamemanager.PrintGamePiecePosistion();
+    }
     return 0;
 }
