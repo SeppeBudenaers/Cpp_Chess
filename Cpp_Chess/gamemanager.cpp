@@ -205,7 +205,7 @@ void GameManager::Turn()
 
         }
     }
-    gamefield.SetTurn(!gamefield.GetTurn());
+    gamefield.EndTurn();
 }
 
 

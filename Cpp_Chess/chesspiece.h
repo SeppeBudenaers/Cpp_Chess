@@ -7,16 +7,16 @@ class ChessPiece
 public:
     ChessPiece(int X, int Y, bool Color,GameField*gamefield)    : Xcoordinate(X), Ycoordinate(Y),Color(Color),field(gamefield) {}
 
-    int GetPosX() {return Xcoordinate;}
-    int GetPosY() {return Ycoordinate;}
-    bool GetColor() {return Color;}
+    int GetPosX() const {return Xcoordinate;}
+    int GetPosY() const {return Ycoordinate;}
+    bool GetColor() const {return Color;}
 
-    virtual bool IsBishop() {return false;}
-    virtual bool IsKing() {return false;}
-    virtual bool IsKnight() {return false;}
-    virtual bool IsPawn() {return false;}
-    virtual bool IsQueen() {return false;}
-    virtual bool IsRook() {return false;}
+    virtual bool IsBishop() const {return false;}
+    virtual bool IsKing() const {return false;}
+    virtual bool IsKnight() const {return false;}
+    virtual bool IsPawn() const {return false;}
+    virtual bool IsQueen() const {return false;}
+    virtual bool IsRook() const {return false;}
 
     const GameField* GetGameField() const {return field;}
 

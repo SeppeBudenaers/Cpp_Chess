@@ -7,7 +7,7 @@ class Rook : public ChessPiece
 public:
     Rook(int X,int Y, bool Color, GameField*gamefield) : ChessPiece(X,Y,Color,gamefield)   {}
 
-    bool IsRook() {return true;}
+    bool IsRook() const {return true;}
 
     bool Move(int X, int Y);
     bool CheckingValidMove(int X, int Y);

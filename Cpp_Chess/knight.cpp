@@ -1,7 +1,7 @@
 #include "knight.h"
 #include "gameboard.h"
 #include "math.h"
-bool Knight::Moveset(int X, int Y)
+bool Knight::Lmovement(int X, int Y)
 {
     if(abs(GetPosX()-X) == 2 && abs(GetPosY()-Y) == 1&&!GetGameField()->IsBlocked(X,Y,GetColor()))
     {
@@ -16,7 +16,7 @@ bool Knight::Moveset(int X, int Y)
 
 bool Knight::Move(int X, int Y)
 {
-    if(Moveset(X,Y))
+    if(Lmovement(X,Y))
     {
         SetPosX(X);
         SetPosY(Y);
@@ -27,7 +27,7 @@ bool Knight::Move(int X, int Y)
 
 bool Knight::CheckingValidMove(int X, int Y)
 {
-    if(Moveset(X,Y))
+    if(Lmovement(X,Y))
     {
         return true;
     }

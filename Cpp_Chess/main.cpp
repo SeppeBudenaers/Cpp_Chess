@@ -7,16 +7,10 @@ using namespace std;
 int main()
 {
     GameManager gamemanager;
-    gamemanager.PrintGamePiecePosistion();
-    gamemanager.Turn();
-    gamemanager.PrintGamePiecePosistion();
-    gamemanager.Turn();
-    gamemanager.PrintGamePiecePosistion();
-    gamemanager.Turn();
-    gamemanager.PrintGamePiecePosistion();
-    while(1){
-    gamemanager.Turn();
-    gamemanager.PrintGamePiecePosistion();
+    while(1)
+    {
+       gamemanager.PrintGamePiecePosistion();
+       gamemanager.Turn();
     }
     return 0;
 }

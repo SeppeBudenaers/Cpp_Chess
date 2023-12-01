@@ -2,7 +2,7 @@
 #include "gameboard.h"
 #include "math.h"
 #include <iostream>
-bool Bishop::Moveset(int X, int Y)
+bool Bishop::Diagonal(int X, int Y)
 {
     bool ValidMove = true;
     if((abs(GetPosX()-X) == abs(GetPosY()-Y)) && ((GetPosX()-X) != 0))
@@ -69,7 +69,7 @@ bool Bishop::Moveset(int X, int Y)
 bool Bishop::Move(int X, int Y)
 {
 
-    if(Moveset(X,Y))
+    if(Diagonal(X,Y))
     {
         SetPosX(X);
         SetPosY(Y);
@@ -80,8 +80,7 @@ bool Bishop::Move(int X, int Y)
 
 bool Bishop::CheckingValidMove(int X, int Y)
 {
-    cout<<"Bishop debug"<<Moveset(X,Y)<<endl;
-    if(Moveset(X,Y))
+    if(Diagonal(X,Y))
     {
         return true;
     }
