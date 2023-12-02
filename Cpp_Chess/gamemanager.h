@@ -9,20 +9,28 @@ using namespace std;
 class GameManager
 {
 public:
-    GameManager(){}
+    GameManager(void) {}
 
-    void PrintGamePiecePosistion();
-    void Turn();
 
-    ~GameManager() {}
+    void Turn(void);
+
+    ~GameManager(void) {}
 private:
     struct coordinates
     {
         int X;
         int Y;
     };
+
     GameField gamefield;
-    coordinates ScanInput();
+
+
+
+    void PrintGamePiecePosistion(vector<ChessPiece*>* list);
+
+    bool RemoveGamePiece(int X,int Y,vector<ChessPiece*>* list);
+
+    coordinates ScanInput(void);
     int CharToInt(char input);
     bool OutOfBounds(int X,int Y);
 };

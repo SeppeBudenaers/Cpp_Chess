@@ -65,9 +65,9 @@ GameManager::coordinates GameManager::ScanInput()
     return  Input;
 }
 
-void GameManager::PrintGamePiecePosistion()
+void GameManager::PrintGamePiecePosistion(vector<ChessPiece*>* list)
 {
-    for (ChessPiece* I : gamefield.GetVector()) {
+    for (ChessPiece* I : *list) {
         cout<<"Co ords of game piece is : ";
         switch (I->GetPosX()) {
         case 0:
@@ -100,12 +100,29 @@ void GameManager::PrintGamePiecePosistion()
     }
 }
 
+bool GameManager::RemoveGamePiece(int X,int Y,vector<ChessPiece*>* list)
+{
+    bool RemovingPiece = false;
+    int pos = 0;
+    for (ChessPiece* I :*list)
+    {
+        if((I->GetPosX() == X )&&(I->GetPosY() == Y)&&(I->GetColor() != gamefield.GetTurn()))
+        {
+            RemovingPiece = true;
+            break;
+        }
+        pos++;
+    }
+    if(RemovingPiece){list->erase(list->begin()+pos);}
+}
+
 void GameManager::Turn()
 {
     bool TurnCompleted = false;
 
     while(!TurnCompleted)
     {
+
         //flags
         bool SamePiece = false;
         bool FoundPiece = false;
@@ -117,6 +134,7 @@ void GameManager::Turn()
         coordinates EndPosition;
         coordinates BeginPosition;
 
+        PrintGamePiecePosistion(&list);
         //begin postion
         if(gamefield.GetTurn()){cout<<"Blacks turn"<<endl<<"Please enter pawn that you want to move :";}
         else{cout<<"Whites turn"<<endl<<"Please enter pawn that you want to move :";}
@@ -136,34 +154,22 @@ void GameManager::Turn()
                     ValidMove = I->Move(EndPosition.X,EndPosition.Y);
 
                     //if attack happend removing chess piece out of temp list
-                    int pos = 0;
-                    for (ChessPiece* I :list)
-                    {
-                        if((I->GetPosX() == EndPosition.X )&&(I->GetPosY() == EndPosition.Y)&&(I->GetColor() != gamefield.GetTurn()))
-                        {
-                            RemovingPiece = true;
-                            break;
-                        }
-                        pos++;
-                    }
-                    if(RemovingPiece){list.erase(list.begin()+pos);}
-
+                    RemovingPiece = RemoveGamePiece(EndPosition.X,EndPosition.Y,&list);
                     //looking if you are standing check
-                    int KingPosX = 0;
-                    int KingPosY = 0;
+                    coordinates King;
                     for (ChessPiece* I :list)
                     {
                         if((I->GetColor() == gamefield.GetTurn())&&I->IsKing())
                         {
-                            KingPosX = I->GetPosX();
-                            KingPosY = I->GetPosY();
+                            King.X = I->GetPosX();
+                            King.Y = I->GetPosY();
                             cout<<"debug King:"<<I->GetPosX()<<I->GetPosY()<<endl;
                             break;
                         }
                     }
                     for (ChessPiece* I :list)
                     {
-                        if((I->GetColor() !=gamefield.GetTurn()) && I->CheckingValidMove(KingPosX,KingPosY))
+                        if((I->GetColor() !=gamefield.GetTurn()) && I->CheckingValidMove(King.X,King.Y))
                         {
                             cout<<"debug check:"<<I->GetPosX()<<I->GetPosY()<<endl;
 
