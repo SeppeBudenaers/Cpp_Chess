@@ -114,6 +114,33 @@ bool GameManager::RemoveGamePiece(int X,int Y,vector<ChessPiece*>* list)
         pos++;
     }
     if(RemovingPiece){list->erase(list->begin()+pos);}
+    return RemovingPiece;
+}
+
+bool GameManager::CheckingForCheck(vector<ChessPiece*>* list)
+{
+    bool Check = false;
+    coordinates King;
+    for (ChessPiece* I :*list)
+    {
+        if((I->GetColor() == gamefield.GetTurn())&&I->IsKing())
+        {
+            King.X = I->GetPosX();
+            King.Y = I->GetPosY();
+            cout<<"debug King:"<<I->GetPosX()<<I->GetPosY()<<endl;
+            break;
+        }
+    }
+    for (ChessPiece* I :*list)
+    {
+        if((I->GetColor() !=gamefield.GetTurn()) && I->CheckingValidMove(King.X,King.Y))
+        {
+            cout<<"debug check:"<<I->GetPosX()<<I->GetPosY()<<endl;
+
+            Check = true;
+        }
+    }
+    return Check;
 }
 
 void GameManager::Turn()
@@ -152,31 +179,11 @@ void GameManager::Turn()
                 if(!((BeginPosition.X == EndPosition.X)&&(BeginPosition.Y == EndPosition.Y)))
                 {
                     ValidMove = I->Move(EndPosition.X,EndPosition.Y);
-
-                    //if attack happend removing chess piece out of temp list
+                    // is het intersant om bv if(Move()){valid = true}else{break}? om niet nodeloos functies te callen als het toch al invalid is
                     RemovingPiece = RemoveGamePiece(EndPosition.X,EndPosition.Y,&list);
-                    //looking if you are standing check
-                    coordinates King;
-                    for (ChessPiece* I :list)
-                    {
-                        if((I->GetColor() == gamefield.GetTurn())&&I->IsKing())
-                        {
-                            King.X = I->GetPosX();
-                            King.Y = I->GetPosY();
-                            cout<<"debug King:"<<I->GetPosX()<<I->GetPosY()<<endl;
-                            break;
-                        }
-                    }
-                    for (ChessPiece* I :list)
-                    {
-                        if((I->GetColor() !=gamefield.GetTurn()) && I->CheckingValidMove(King.X,King.Y))
-                        {
-                            cout<<"debug check:"<<I->GetPosX()<<I->GetPosY()<<endl;
-
-                            Check = true;
-                        }
-                    }
-                    break;
+                    //same comment
+                    Check = CheckingForCheck(&list);
+                    //same comment
                 }
                 else{SamePiece = true;}
             }

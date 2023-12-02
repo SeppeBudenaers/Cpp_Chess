@@ -24,13 +24,13 @@ private:
 
     GameField gamefield;
 
-
-
+    //help function of turn
     void PrintGamePiecePosistion(vector<ChessPiece*>* list);
-
-    bool RemoveGamePiece(int X,int Y,vector<ChessPiece*>* list);
-
     coordinates ScanInput(void);
+    bool RemoveGamePiece(int X,int Y,vector<ChessPiece*>* list);
+    bool CheckingForCheck(vector<ChessPiece*>* list);
+
+
     int CharToInt(char input);
     bool OutOfBounds(int X,int Y);
 };
