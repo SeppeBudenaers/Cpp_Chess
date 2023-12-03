@@ -47,21 +47,15 @@ bool Pawn::Forward(int X, int Y)
     return false;
 }
 
-bool Pawn::Move(int X, int Y)
+bool Pawn::CheckingValidMove(int X, int Y, bool MovePiece)
 {
     if(Forward(X,Y)||Attack(X,Y))
     {
-        SetPosX(X);
-        SetPosY(Y);
-        return true;
-    }
-    return false;
-}
-
-bool Pawn::CheckingValidMove(int X, int Y)
-{
-    if(Forward(X,Y)||Attack(X,Y))
-    {
+        if(MovePiece)
+        {
+            SetPosX(X);
+            SetPosY(Y);
+        }
         return true;
     }
     return false;

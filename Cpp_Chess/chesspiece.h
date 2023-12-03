@@ -21,8 +21,7 @@ public:
     const GameField* GetGameField(void) const {return field;}
 
     void ResetMove(int X, int Y){SetPosX(X);SetPosY(Y);}
-    virtual bool Move(int X, int Y)	= 0;
-    virtual bool CheckingValidMove(int X, int Y)	= 0;
+    virtual bool CheckingValidMove(int X, int Y, bool MovePiece = false)	= 0;
 
     virtual ~ChessPiece(void){}
 protected:
@@ -36,5 +35,5 @@ private:
     const GameField* field;
 
 };
-
 #endif // CHESSPIECE_H
+

@@ -14,21 +14,15 @@ bool Knight::Lmovement(int X, int Y)
     return false;
 }
 
-bool Knight::Move(int X, int Y)
+bool Knight::CheckingValidMove(int X, int Y, bool MovePiece)
 {
     if(Lmovement(X,Y))
     {
-        SetPosX(X);
-        SetPosY(Y);
-        return true;
-    }
-    return false;
-}
-
-bool Knight::CheckingValidMove(int X, int Y)
-{
-    if(Lmovement(X,Y))
-    {
+        if(MovePiece)
+        {
+            SetPosX(X);
+            SetPosY(Y);
+        }
         return true;
     }
     return false;

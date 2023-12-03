@@ -9,8 +9,7 @@ public:
 
     bool IsRook() const {return true;}
 
-    bool Move(int X, int Y);
-    bool CheckingValidMove(int X, int Y);
+    bool CheckingValidMove(int X, int Y, bool MovePiece = false);
 
     ~Rook(){}
 private:

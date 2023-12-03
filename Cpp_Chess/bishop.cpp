@@ -2,6 +2,7 @@
 #include "gameboard.h"
 #include "math.h"
 #include <iostream>
+
 bool Bishop::Diagonal(int X, int Y)
 {
     bool ValidMove = true;
@@ -66,22 +67,15 @@ bool Bishop::Diagonal(int X, int Y)
     return false;
 }
 
-bool Bishop::Move(int X, int Y)
-{
-
-    if(Diagonal(X,Y))
-    {
-        SetPosX(X);
-        SetPosY(Y);
-        return true;
-    }
-    return false;
-}
-
-bool Bishop::CheckingValidMove(int X, int Y)
+bool Bishop::CheckingValidMove(int X, int Y, bool MovePiece)
 {
     if(Diagonal(X,Y))
     {
+        if(MovePiece)
+        {
+            SetPosX(X);
+            SetPosY(Y);
+        }
         return true;
     }
     return false;

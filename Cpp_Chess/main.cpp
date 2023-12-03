@@ -4,7 +4,7 @@
 
 int main()
 {
-    GameManager gamemanager;
+    chess::GameManager gamemanager;
     while(1)
     {
        gamemanager.Turn();

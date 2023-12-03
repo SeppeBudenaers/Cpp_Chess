@@ -61,21 +61,15 @@ bool Rook::LeftAndRight(int X, int Y)
     return false;
 }
 
-bool Rook::Move(int X, int Y)
+bool Rook::CheckingValidMove(int X, int Y, bool MovePiece)
 {
     if(LeftAndRight(X,Y)||UpAndDown(X,Y))
     {
-        SetPosX(X);
-        SetPosY(Y);
-        return true;
-    }
-    return false;
-}
-
-bool Rook::CheckingValidMove(int X, int Y)
-{
-    if(LeftAndRight(X,Y)||UpAndDown(X,Y))
-    {
+        if(MovePiece)
+        {
+            SetPosX(X);
+            SetPosY(Y);
+        }
         return true;
     }
     return false;

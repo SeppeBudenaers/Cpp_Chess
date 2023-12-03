@@ -6,6 +6,7 @@
 
 
 using namespace std;
+namespace chess{
 class GameManager
 {
 public:
@@ -35,3 +36,4 @@ private:
     bool OutOfBounds(int X,int Y);
 };
 #endif // GAMEMANAGER_H
+}

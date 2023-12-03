@@ -125,21 +125,15 @@ bool Queen::Diagonal(int X, int Y)
     return false;
 }
 
-bool Queen::Move(int X, int Y)
+bool Queen::CheckingValidMove(int X, int Y, bool MovePiece)
 {
     if(LeftAndRight(X,Y)||UpAndDown(X,Y)||Diagonal(X,Y))
     {
-        SetPosX(X);
-        SetPosY(Y);
-        return true;
-    }
-    return false;
-}
-
-bool Queen::CheckingValidMove(int X, int Y)
-{
-    if(LeftAndRight(X,Y)||UpAndDown(X,Y)||Diagonal(X,Y))
-    {
+        if(MovePiece)
+        {
+            SetPosX(X);
+            SetPosY(Y);
+        }
         return true;
     }
     return false;

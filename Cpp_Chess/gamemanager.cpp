@@ -1,5 +1,5 @@
 #include "gamemanager.h"
-
+using namespace chess;
 int GameManager::CharToInt(char Input)
 {
     switch (Input) {
@@ -178,7 +178,7 @@ void GameManager::Turn()
                 EndPosition = ScanInput();
                 if(!((BeginPosition.X == EndPosition.X)&&(BeginPosition.Y == EndPosition.Y)))
                 {
-                    ValidMove = I->Move(EndPosition.X,EndPosition.Y);
+                    ValidMove = I->CheckingValidMove(EndPosition.X,EndPosition.Y,true);
                     // is het intersant om bv if(Move()){valid = true}else{break}? om niet nodeloos functies te callen als het toch al invalid is
                     RemovingPiece = RemoveGamePiece(EndPosition.X,EndPosition.Y,&list);
                     //same comment
