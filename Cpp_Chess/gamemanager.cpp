@@ -65,9 +65,9 @@ GameManager::coordinates GameManager::ScanInput()
     return  Input;
 }
 
-void GameManager::PrintGamePiecePosistion(vector<ChessPiece*>* list)
+void GameManager::PrintGamePiecePosistion(const vector<ChessPiece*>& list)
 {
-    for (ChessPiece* I : *list) {
+    for (ChessPiece* I : list) {
         cout<<"Co ords of game piece is : ";
         switch (I->GetPosX()) {
         case 0:
@@ -100,11 +100,11 @@ void GameManager::PrintGamePiecePosistion(vector<ChessPiece*>* list)
     }
 }
 
-bool GameManager::RemoveGamePiece(int X,int Y,vector<ChessPiece*>* list)
+bool GameManager::RemoveGamePiece(int X,int Y,vector<ChessPiece*>& list)
 {
     bool RemovingPiece = false;
     int pos = 0;
-    for (ChessPiece* I :*list)
+    for (ChessPiece* I :list)
     {
         if((I->GetPosX() == X )&&(I->GetPosY() == Y)&&(I->GetColor() != gamefield.GetTurn()))
         {
@@ -113,15 +113,15 @@ bool GameManager::RemoveGamePiece(int X,int Y,vector<ChessPiece*>* list)
         }
         pos++;
     }
-    if(RemovingPiece){list->erase(list->begin()+pos);}
+    if(RemovingPiece){list.erase(list.begin()+pos);}
     return RemovingPiece;
 }
 
-bool GameManager::CheckingForCheck(vector<ChessPiece*>* list)
+bool GameManager::CheckingForCheck(const vector<ChessPiece*>& list)
 {
     bool Check = false;
     coordinates King;
-    for (ChessPiece* I :*list)
+    for (ChessPiece* I :list)
     {
         if((I->GetColor() == gamefield.GetTurn())&&I->IsKing())
         {
@@ -131,7 +131,7 @@ bool GameManager::CheckingForCheck(vector<ChessPiece*>* list)
             break;
         }
     }
-    for (ChessPiece* I :*list)
+    for (ChessPiece* I :list)
     {
         if((I->GetColor() !=gamefield.GetTurn()) && I->CheckingValidMove(King.X,King.Y))
         {
@@ -161,7 +161,7 @@ void GameManager::Turn()
         coordinates EndPosition;
         coordinates BeginPosition;
 
-        PrintGamePiecePosistion(&list);
+        PrintGamePiecePosistion(list);
         //begin postion
         if(gamefield.GetTurn()){cout<<"Blacks turn"<<endl<<"Please enter pawn that you want to move :";}
         else{cout<<"Whites turn"<<endl<<"Please enter pawn that you want to move :";}
@@ -180,9 +180,9 @@ void GameManager::Turn()
                 {
                     ValidMove = I->CheckingValidMove(EndPosition.X,EndPosition.Y,true);
                     // is het intersant om bv if(Move()){valid = true}else{break}? om niet nodeloos functies te callen als het toch al invalid is
-                    RemovingPiece = RemoveGamePiece(EndPosition.X,EndPosition.Y,&list);
+                    RemovingPiece = RemoveGamePiece(EndPosition.X,EndPosition.Y,list);
                     //same comment
-                    Check = CheckingForCheck(&list);
+                    Check = CheckingForCheck(list);
                     //same comment
                 }
                 else{SamePiece = true;}

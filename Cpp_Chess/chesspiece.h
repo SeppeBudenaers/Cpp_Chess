@@ -1,11 +1,12 @@
 #ifndef CHESSPIECE_H
 #define CHESSPIECE_H
+#include <cstdint>
 class GameField;
 
 class ChessPiece
 {
 public:
-    ChessPiece(int X, int Y, bool Color,GameField*gamefield)    : Xcoordinate(X), Ycoordinate(Y),Color(Color),field(gamefield) {}
+    ChessPiece(int X, int Y, bool Color,const GameField*gamefield)    : Xcoordinate(X), Ycoordinate(Y),Color(Color),field(gamefield) {}
 
     int GetPosX(void) const {return Xcoordinate;}
     int GetPosY(void) const {return Ycoordinate;}
@@ -29,8 +30,8 @@ protected:
     void SetPosY(int Y) {Ycoordinate = Y;}
 
 private:
-    int Xcoordinate = 0;
-    int Ycoordinate = 0;
+    uint8_t Xcoordinate = 0;
+    uint8_t  Ycoordinate = 0;
     const bool Color = false; //white = false
     const GameField* field;
 

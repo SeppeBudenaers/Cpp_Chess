@@ -26,14 +26,14 @@ private:
     GameField gamefield;
 
     //help function of turn
-    void PrintGamePiecePosistion(vector<ChessPiece*>* list);
+    void PrintGamePiecePosistion(const vector<ChessPiece*> & list);
     coordinates ScanInput(void);
-    bool RemoveGamePiece(int X,int Y,vector<ChessPiece*>* list);
-    bool CheckingForCheck(vector<ChessPiece*>* list);
+    bool RemoveGamePiece(int X,int Y,vector<ChessPiece*> & list);
+    bool CheckingForCheck(const vector<ChessPiece*> & list);
 
 
     int CharToInt(char input);
-    bool OutOfBounds(int X,int Y);
+    bool OutOfBounds(const int X, const int Y);
 };
 #endif // GAMEMANAGER_H
 }
