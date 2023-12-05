@@ -3,7 +3,8 @@
 #include <iostream>
 #include <vector>
 #include"gameboard.h"
-
+#include"coordinates.h"
+#include <cstdint>
 
 using namespace std;
 namespace chess{
@@ -17,23 +18,18 @@ public:
 
     ~GameManager(void) {}
 private:
-    struct coordinates
-    {
-        int X;
-        int Y;
-    };
 
     GameField gamefield;
 
     //help function of turn
     void PrintGamePiecePosistion(const vector<ChessPiece*> & list);
-    coordinates ScanInput(void);
+    Coordinates<uint8_t,uint8_t> ScanInput(void);
     bool RemoveGamePiece(const int X,const int Y,vector<ChessPiece*> & list);
     bool CheckingForCheck(const vector<ChessPiece*> & list);
 
 
-    int CharToInt(const char input);
-    bool OutOfBounds(const int X, const int Y);
+    uint8_t CharToUint8_T(const char input);
+    bool OutOfBounds(const uint8_t X, const uint8_t Y);
 };
 #endif // GAMEMANAGER_H
 }

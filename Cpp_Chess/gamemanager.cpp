@@ -1,45 +1,52 @@
 #include "gamemanager.h"
+#include "coordinates.h"
+#include <cstdint>
+
 using namespace chess;
-int GameManager::CharToInt(const char Input)
+uint8_t GameManager::CharToUint8_T(const char Input)
 {
+    uint8_t thefuck;
     switch (Input) {
     case 'a':
     case 'A':
-        return  0;
+        cout<<"debug setting temp to 70"<<endl;
+        thefuck =  0;
+        cout<<"debug temp"<<+thefuck<<endl;
         break;
     case 'b':
     case 'B':
-        return  1;
+        thefuck =  1;
         break;
     case 'c':
     case 'C':
-        return  2;
+        thefuck =  2;
         break;
     case 'd':
     case 'D':
-        return  3;
+        thefuck =  3;
         break;
     case 'e':
     case 'E':
-        return  4;
+        thefuck = 4;
         break;
     case 'f':
     case 'F':
-        return  5;
+        thefuck =  5;
         break;
     case 'g':
     case 'G':
-        return  6;
+        thefuck =  6;
         break;
     case 'h':
     case 'H':
-        return  7;
+        thefuck =  7;
         break;
     }
-    return -1;
+    cout<<"debug temp"<<thefuck<<endl;
+    return thefuck;
 }
 
-bool GameManager::OutOfBounds(const int X,const int Y)
+bool GameManager::OutOfBounds(const uint8_t X,const uint8_t Y)
 {
     if((-1<X)&&(X<8)&&(0<Y)&&(Y<9))
     {
@@ -51,15 +58,22 @@ bool GameManager::OutOfBounds(const int X,const int Y)
     }
 }
 
-GameManager::coordinates GameManager::ScanInput()
+Coordinates<uint8_t,uint8_t> GameManager::ScanInput()
 {
     bool CordinatesAquired = false;
     char charXinput= 0;
-    coordinates Input;
+    uint8_t Xinput = 0;
+    uint8_t Yinput = 0;
+    Coordinates<uint8_t,uint8_t> Input;
+
     while (!CordinatesAquired) { // bug dat cin geen tweede keer word gevraagt
-        cin>>charXinput>>Input.Y;
-        Input.X = CharToInt(charXinput);
-        if(!OutOfBounds(Input.X,Input.Y)){CordinatesAquired = true;}
+        cin>>charXinput>>Yinput;
+        Xinput = CharToUint8_T(charXinput);
+        cout<<"Debug"<<+Xinput<<endl;
+        Input.setX(Xinput);
+        Input.setY(Yinput);
+        cout<<"Debug"<<Input.GetX()<<Input.GetY()<<endl;
+        if(!OutOfBounds(Input.GetX(),Input.GetY())){CordinatesAquired = true;}
         else{cout<<"Cordinates are out of bounds."<<endl;}
     }
     return  Input;
@@ -120,20 +134,19 @@ bool GameManager::RemoveGamePiece(const int X,const int Y,vector<ChessPiece*>& l
 bool GameManager::CheckingForCheck(const vector<ChessPiece*>& list)
 {
     bool Check = false;
-    coordinates King;
+    Coordinates<uint8_t,uint8_t> King;
     for (ChessPiece* I :list)
     {
         if((I->GetColor() == gamefield.GetTurn())&&I->IsKing())
         {
-            King.X = I->GetPosX();
-            King.Y = I->GetPosY();
-            cout<<"debug King:"<<I->GetPosX()<<I->GetPosY()<<endl;
+            King.setX(I->GetPosX());
+            King.setY(I->GetPosY());
             break;
         }
     }
     for (ChessPiece* I :list)
     {
-        if((I->GetColor() !=gamefield.GetTurn()) && I->CheckingValidMove(King.X,King.Y))
+        if((I->GetColor() !=gamefield.GetTurn()) && I->CheckingValidMove(King.GetX(),King.GetY()))
         {
             cout<<"debug check:"<<I->GetPosX()<<I->GetPosY()<<endl;
 
@@ -158,8 +171,8 @@ void GameManager::Turn()
         bool Check = false;
 
         vector<ChessPiece*> list = gamefield.GetVector();
-        coordinates EndPosition;
-        coordinates BeginPosition;
+        Coordinates<uint8_t,uint8_t> EndPosition;
+        Coordinates<uint8_t,uint8_t> BeginPosition;
 
         PrintGamePiecePosistion(list);
         //begin postion
@@ -169,18 +182,18 @@ void GameManager::Turn()
 
         for (ChessPiece* I :list)
         {
-        if((I->GetPosX() == BeginPosition.X )&&(I->GetPosY() == BeginPosition.Y)&&(I->GetColor() == gamefield.GetTurn())){
+        if((I->GetPosX() == BeginPosition.GetX() )&&(I->GetPosY() == BeginPosition.GetY())&&(I->GetColor() == gamefield.GetTurn())){
                 FoundPiece = true;
 
                 //end position
 
                 cout<<"To ?:";
                 EndPosition = ScanInput();
-                if(!((BeginPosition.X == EndPosition.X)&&(BeginPosition.Y == EndPosition.Y)))
+                if(!((BeginPosition.GetX() == EndPosition.GetX())&&(BeginPosition.GetY() == EndPosition.GetY())))
                 {
-                    ValidMove = I->CheckingValidMove(EndPosition.X,EndPosition.Y,true);
+                    ValidMove = I->CheckingValidMove(EndPosition.GetX(),EndPosition.GetY(),true);
                     // is het intersant om bv if(Move()){valid = true}else{break}? om niet nodeloos functies te callen als het toch al invalid is
-                    RemovingPiece = RemoveGamePiece(EndPosition.X,EndPosition.Y,list);
+                    RemovingPiece = RemoveGamePiece(EndPosition.GetX(),EndPosition.GetY(),list);
                     //same comment
                     Check = CheckingForCheck(list);
                     //same comment
@@ -204,15 +217,15 @@ void GameManager::Turn()
             TurnCompleted = true;
             if(RemovingPiece)
             {
-                gamefield.RemovePiece(EndPosition.X,EndPosition.Y,!gamefield.GetTurn());
+                gamefield.RemovePiece(EndPosition.GetX(),EndPosition.GetY(),!gamefield.GetTurn());
             }
         }
         else
         {
             for (ChessPiece* I :list){
-                if((I->GetPosX() == EndPosition.X )&&(I->GetPosY() == EndPosition.Y)&&(I->GetColor() == gamefield.GetTurn()))
+                if((I->GetPosX() == EndPosition.GetX())&&(I->GetPosY() == EndPosition.GetY())&&(I->GetColor() == gamefield.GetTurn()))
                 {
-                    I->ResetMove(BeginPosition.X,BeginPosition.Y);
+                    I->ResetMove(BeginPosition.GetX(),BeginPosition.GetY());
                 }
             }
 
