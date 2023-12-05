@@ -26,8 +26,9 @@
 *.a
 *.lib
 
-./build-Cpp_Chess-Desktop_Qt_6_5_3_MinGW_64_bit-Debug
 # Executables
 *.exe
 *.out
 *.app
+
+build-Cpp_Chess-Desktop_Qt_6_5_3_MinGW_64_bit-Debug/
