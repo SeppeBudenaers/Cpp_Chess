@@ -2,6 +2,7 @@
 #define GAMEBOARD_H
 #include <iostream>
 #include <vector>
+#include "coordinates.h"
 #include "rook.h"
 #include "knight.h"
 #include "bishop.h"
@@ -18,10 +19,10 @@ public:
     bool GetTurn (void) const                         {return TurnTracker;}
 
 
-    void RemovePiece(const int X, const int Y, const bool Color);
+    void RemovePiece(const Coordinates<uint8_t,uint8_t>& Input, const bool Color);
 
-    bool AbleToAttack(const int X,const int Y,const bool Color) const;
-    bool IsBlocked(const int X,const int Y, const bool Color) const;
+    bool AbleToAttack(const Coordinates<uint8_t,uint8_t>& Input,const bool Color) const;
+    bool IsBlocked(const Coordinates<uint8_t,uint8_t>& Input, const bool Color) const;
 
     void EndTurn (void) {TurnTracker = !TurnTracker;} // kan ik deze beter beveiligen
 

@@ -2,23 +2,23 @@
 #include "math.h"
 #include "gameboard.h"
 #include <iostream>
-bool King::Moveset(const int X, const int Y)
+bool King::Moveset(const Coordinates<uint8_t,uint8_t>& Input)
 {
-    if((abs(GetPosX()-X)<=1)&&(abs(GetPosY()-Y)<=1)&&!GetGameField()->IsBlocked(X,Y,GetColor()))
+    if((abs(GetPosX()-Input.GetX())<=1)&&(abs(GetPosY()-Input.GetY())<=1)&&!GetGameField()->IsBlocked(Input,GetColor()))
     {
         return true;
     }
     return false;
 }
 
-bool King::CheckingValidMove(const int X,const int Y,const bool MovePiece)
+bool King::CheckingValidMove(const Coordinates<uint8_t,uint8_t>& Input,const bool MovePiece)
 {
-    if(Moveset(X,Y))
+    if(Moveset(Input))
     {
         if(MovePiece)
         {
-            SetPosX(X);
-            SetPosY(Y);
+            SetPosX(Input.GetX());
+            SetPosY(Input.GetY());
         }
         return true;
     }

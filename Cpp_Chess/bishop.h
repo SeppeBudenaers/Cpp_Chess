@@ -9,12 +9,12 @@ public:
 
     bool IsBishop() const {return true;}
 
-    bool CheckingValidMove(const int X,const int Y,const bool MovePiece = false);
+    bool CheckingValidMove(const Coordinates<uint8_t,uint8_t>& Input,const bool MovePiece = false);
 
     ~Bishop() {}
 
 private:
-    bool Diagonal(const int X,const int Y);
+    bool Diagonal(const Coordinates<uint8_t,uint8_t>& Input);
 };
 
 #endif // BISHOP_H

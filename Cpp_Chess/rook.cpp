@@ -1,15 +1,18 @@
 #include "rook.h"
 #include "gameboard.h"
 
-bool Rook::UpAndDown(const int X, const int Y)
+bool Rook::UpAndDown(const Coordinates<uint8_t,uint8_t>& Input)
 {
+    Coordinates<uint8_t,uint8_t> Temp;
+    Temp.setX(Input.GetX());
     bool ValidMove = true;
-    if((X-GetPosX()) == 0)
+    if((Input.GetX()-GetPosX()) == 0)
     {
-        if(Y < GetPosY())
+        if(Input.GetY() < GetPosY())
         {
-            for (int I = GetPosY()-1 ; I >= Y; --I) {
-                if(GetGameField()->IsBlocked(X,I,GetColor())||(GetGameField()->AbleToAttack(X,I,GetColor()) && !(I == Y)))
+            for (int I = GetPosY()-1 ; I >= Input.GetY(); --I) {
+                Temp.setY(I);
+                if(GetGameField()->IsBlocked(Temp,GetColor())||(GetGameField()->AbleToAttack(Temp,GetColor()) && !(Temp.GetY() == Input.GetY())))
                 {
                     ValidMove = false;
                     break;
@@ -18,8 +21,9 @@ bool Rook::UpAndDown(const int X, const int Y)
         }
         else
         {
-            for (int I = GetPosY()+1 ; I <= Y; ++I) {
-                if(GetGameField()->IsBlocked(X,I,GetColor())||(GetGameField()->AbleToAttack(X,I,GetColor()) && !(I == Y)))
+            for (int I = GetPosY()+1 ; I <= Input.GetY(); ++I) {
+                Temp.setY(I);
+                if(GetGameField()->IsBlocked(Temp,GetColor())||(GetGameField()->AbleToAttack(Temp,GetColor()) && !(Temp.GetY() == Input.GetY())))
                 {
                     ValidMove = false;
                     break;
@@ -31,15 +35,18 @@ bool Rook::UpAndDown(const int X, const int Y)
     return false;
 }
 
-bool Rook::LeftAndRight(const int X, const int Y)
+bool Rook::LeftAndRight(const Coordinates<uint8_t,uint8_t>& Input)
 {
+    Coordinates<uint8_t,uint8_t> Temp;
+    Temp.setY(Input.GetY());
     bool ValidMove = true;
-    if((Y-GetPosY()) == 0)
+    if((Input.GetY()-GetPosY()) == 0)
     {
-        if(X < GetPosX())
+        if(Input.GetX() < GetPosX())
         {
-            for (int I = GetPosX()-1 ; I >= X; --I) {
-                if(GetGameField()->IsBlocked(I,Y,GetColor())||(GetGameField()->AbleToAttack(I,Y,GetColor()) && !(I == X)))
+            for (int I = GetPosX()-1 ; I >= Input.GetX() ; --I) {
+                Temp.setX(I);
+                if(GetGameField()->IsBlocked(Temp,GetColor())||(GetGameField()->AbleToAttack(Temp,GetColor()) && !(Temp.GetX() == Input.GetY())))
                 {
                     ValidMove = false;
                     break;
@@ -48,8 +55,9 @@ bool Rook::LeftAndRight(const int X, const int Y)
         }
         else
         {
-            for (int I = GetPosX()+1 ; I <= X; ++I) {
-                if(GetGameField()->IsBlocked(I,Y,GetColor())||(GetGameField()->AbleToAttack(I,Y,GetColor()) && !(I == X)))
+            for (int I = GetPosX()+1 ; I <= Input.GetX(); ++I) {
+                Temp.setX(I);
+                if(GetGameField()->IsBlocked(Temp,GetColor())||(GetGameField()->AbleToAttack(Temp,GetColor()) && !(Temp.GetX() == Input.GetY())))
                 {
                     ValidMove = false;
                     break;
@@ -61,14 +69,14 @@ bool Rook::LeftAndRight(const int X, const int Y)
     return false;
 }
 
-bool Rook::CheckingValidMove(const int X, const int Y, const bool MovePiece)
+bool Rook::CheckingValidMove(const Coordinates<uint8_t,uint8_t>& Input, const bool MovePiece)
 {
-    if(LeftAndRight(X,Y)||UpAndDown(X,Y))
+    if(LeftAndRight(Input)||UpAndDown(Input))
     {
         if(MovePiece)
         {
-            SetPosX(X);
-            SetPosY(Y);
+            SetPosX(Input.GetX());
+            SetPosY(Input.GetY());
         }
         return true;
     }

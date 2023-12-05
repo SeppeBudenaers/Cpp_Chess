@@ -9,11 +9,11 @@ public:
 
     bool IsKnight() const {return true;}
 
-    bool CheckingValidMove(const int X,const int Y,const bool MovePiece = false);
+    bool CheckingValidMove(const Coordinates<uint8_t,uint8_t>& Input,const bool MovePiece = false);
 
     ~Knight(){}
 private:
-    bool Lmovement(const int X, const int Y);
+    bool Lmovement(const Coordinates<uint8_t,uint8_t>& Input);
 };
 
 #endif // KNIGHT_H

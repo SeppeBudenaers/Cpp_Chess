@@ -9,11 +9,11 @@ public:
 
     bool IsKing() const {return true;}
 
-    bool CheckingValidMove(const int X,const int Y,const bool MovePiece = false);
+    bool CheckingValidMove(const Coordinates<uint8_t,uint8_t>& Input,const bool MovePiece = false);
 
     ~King(){}
 private:
-    bool Moveset(const int X,const int Y);
+    bool Moveset(const Coordinates<uint8_t,uint8_t>& Input);
 };
 
 #endif // KING_H

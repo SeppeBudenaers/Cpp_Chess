@@ -1,17 +1,17 @@
 #include "gameboard.h"
 
-bool GameField::AbleToAttack(const int X,const int Y,const bool Color) const
+bool GameField::AbleToAttack(const Coordinates<uint8_t,uint8_t>& Input,const bool Color) const
 {
     for (ChessPiece* I :CurrentState){
-        if((I->GetPosX() == X )&&(I->GetPosY() == Y)&&(I->GetColor() != Color)){return true;}
+        if((I->GetPosX() == Input.GetX() )&&(I->GetPosY() == Input.GetY())&&(I->GetColor() != Color)){return true;}
     }
     return false;
 }
 
-bool GameField::IsBlocked(const int X,const int Y,const bool Color) const
+bool GameField::IsBlocked(const Coordinates<uint8_t,uint8_t>& Input,const bool Color) const
 {
     for (ChessPiece* I :CurrentState){
-        if((I->GetPosX() == X )&&(I->GetPosY() == Y)&&(I->GetColor() == Color)){return true;}
+        if((I->GetPosX() == Input.GetX() )&&(I->GetPosY() == Input.GetY())&&(I->GetColor() == Color)){return true;}
     }
     return false;
 }
@@ -36,12 +36,12 @@ GameField::GameField()
     }
 }
 
-void GameField::RemovePiece(const int X,const int Y,const bool Color)
+void GameField::RemovePiece(const Coordinates<uint8_t,uint8_t>& Input ,const bool Color)
 {
     int Pos = 0;
     for (ChessPiece* I :CurrentState)
     {
-        if((I->GetPosX() == X)&&(I->GetPosY() == Y)&&(I->GetColor() == Color))
+        if((I->GetPosX() == Input.GetX())&&(I->GetPosY() == Input.GetY())&&(I->GetColor() == Color))
         {
            delete I;
             break;

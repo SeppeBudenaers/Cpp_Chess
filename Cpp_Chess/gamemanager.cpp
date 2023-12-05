@@ -7,7 +7,7 @@ uint8_t GameManager::CharToUint8_T(const char Input)
 {
     if (isdigit(Input))
     {
-        return static_cast<uint8_t>(Input - '1');
+        return static_cast<uint8_t>(Input - '0');
     }
     else if (isalpha(Input))
     {
@@ -16,10 +16,9 @@ uint8_t GameManager::CharToUint8_T(const char Input)
     return 0;
 }
 
-bool GameManager::OutOfBounds(const uint8_t X,const uint8_t Y)
+bool GameManager::OutOfBounds(const Coordinates<uint8_t, uint8_t> &Input)
 {
-    cout<<"Debug out of bounds"<<int(X)<<+Y<<" "<<(0<=X)<<(X<8)<<(0<Y)<<(Y<9)<<endl;
-    if((0<=X)&&(X<8)&&(0<Y)&&(Y<9))
+    if((Input.GetX()<8)&&(0<Input.GetY())&&(Input.GetY()<9))
     {
         return false;
     }
@@ -29,12 +28,11 @@ bool GameManager::OutOfBounds(const uint8_t X,const uint8_t Y)
     }
 }
 
-Coordinates<uint8_t,uint8_t> GameManager::ScanInput()
+void GameManager::ScanInput(Coordinates<uint8_t,uint8_t>& Input)
 {
     bool CordinatesAquired = false;
     uint8_t Xinput = 0;
     uint8_t Yinput = 0;
-    Coordinates<uint8_t,uint8_t> Input;
 
     while (!CordinatesAquired) { // bug dat cin geen tweede keer word gevraagt
         cin>>Xinput>>Yinput;
@@ -42,10 +40,10 @@ Coordinates<uint8_t,uint8_t> GameManager::ScanInput()
         Yinput = CharToUint8_T(Yinput);
         Input.setX(Xinput);
         Input.setY(Yinput);
-        if(!OutOfBounds(Input.GetX(),Input.GetY())){CordinatesAquired = true;}
+        if(!OutOfBounds(Input)){CordinatesAquired = true;}
         else{cout<<"Cordinates are out of bounds."<<endl;}
     }
-    return  Input;
+
 }
 
 void GameManager::PrintGamePiecePosistion(const vector<ChessPiece*>& list)
@@ -83,13 +81,13 @@ void GameManager::PrintGamePiecePosistion(const vector<ChessPiece*>& list)
     }
 }
 
-bool GameManager::RemoveGamePiece(const int X,const int Y,vector<ChessPiece*>& list)
+bool GameManager::RemoveGamePiece(const Coordinates<uint8_t,uint8_t>& Input,vector<ChessPiece*>& list)
 {
     bool RemovingPiece = false;
     int pos = 0;
     for (ChessPiece* I :list)
     {
-        if((I->GetPosX() == X )&&(I->GetPosY() == Y)&&(I->GetColor() != gamefield.GetTurn()))
+        if((I->GetPosX() == Input.GetX() )&&(I->GetPosY() == Input.GetY())&&(I->GetColor() != gamefield.GetTurn()))
         {
             RemovingPiece = true;
             break;
@@ -110,12 +108,13 @@ bool GameManager::CheckingForCheck(const vector<ChessPiece*>& list)
         {
             King.setX(I->GetPosX());
             King.setY(I->GetPosY());
+            cout<<"debug check:"<<+King.GetX()<<+King.GetY()<<endl;
             break;
         }
     }
     for (ChessPiece* I :list)
     {
-        if((I->GetColor() !=gamefield.GetTurn()) && I->CheckingValidMove(King.GetX(),King.GetY()))
+        if((I->GetColor() !=gamefield.GetTurn()) && I->CheckingValidMove(King))
         {
             cout<<"debug check:"<<I->GetPosX()<<I->GetPosY()<<endl;
 
@@ -147,22 +146,21 @@ void GameManager::Turn()
         //begin postion
         if(gamefield.GetTurn()){cout<<"Blacks turn"<<endl<<"Please enter pawn that you want to move :";}
         else{cout<<"Whites turn"<<endl<<"Please enter pawn that you want to move :";}
-        BeginPosition = ScanInput();
+        ScanInput(BeginPosition);
 
         for (ChessPiece* I :list)
         {
-        if((I->GetPosX() == BeginPosition.GetX() )&&(I->GetPosY() == BeginPosition.GetY())&&(I->GetColor() == gamefield.GetTurn())){
+        if((I->GetPosX() == BeginPosition.GetX() )&&(I->GetPosY() == BeginPosition.GetY())&&(I->GetColor() == gamefield.GetTurn()))
+            {
                 FoundPiece = true;
-
                 //end position
-
                 cout<<"To ?:";
-                EndPosition = ScanInput();
+                ScanInput(EndPosition);
                 if(!((BeginPosition.GetX() == EndPosition.GetX())&&(BeginPosition.GetY() == EndPosition.GetY())))
                 {
-                    ValidMove = I->CheckingValidMove(EndPosition.GetX(),EndPosition.GetY(),true);
+                    ValidMove = I->CheckingValidMove(EndPosition,true);
                     // is het intersant om bv if(Move()){valid = true}else{break}? om niet nodeloos functies te callen als het toch al invalid is
-                    RemovingPiece = RemoveGamePiece(EndPosition.GetX(),EndPosition.GetY(),list);
+                    RemovingPiece = RemoveGamePiece(EndPosition,list);
                     //same comment
                     Check = CheckingForCheck(list);
                     //same comment
@@ -186,7 +184,7 @@ void GameManager::Turn()
             TurnCompleted = true;
             if(RemovingPiece)
             {
-                gamefield.RemovePiece(EndPosition.GetX(),EndPosition.GetY(),!gamefield.GetTurn());
+                gamefield.RemovePiece(EndPosition,!gamefield.GetTurn());
             }
         }
         else
@@ -194,7 +192,7 @@ void GameManager::Turn()
             for (ChessPiece* I :list){
                 if((I->GetPosX() == EndPosition.GetX())&&(I->GetPosY() == EndPosition.GetY())&&(I->GetColor() == gamefield.GetTurn()))
                 {
-                    I->ResetMove(BeginPosition.GetX(),BeginPosition.GetY());
+                    I->ResetMove(BeginPosition);
                 }
             }
 
