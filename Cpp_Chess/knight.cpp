@@ -1,7 +1,7 @@
 #include "knight.h"
 #include "gameboard.h"
 #include "math.h"
-bool Knight::Lmovement(int X, int Y)
+bool Knight::Lmovement(const int X,const int Y)
 {
     if(abs(GetPosX()-X) == 2 && abs(GetPosY()-Y) == 1&&!GetGameField()->IsBlocked(X,Y,GetColor()))
     {
@@ -14,7 +14,7 @@ bool Knight::Lmovement(int X, int Y)
     return false;
 }
 
-bool Knight::CheckingValidMove(int X, int Y, bool MovePiece)
+bool Knight::CheckingValidMove(const int X, const int Y, const bool MovePiece)
 {
     if(Lmovement(X,Y))
     {

@@ -1,7 +1,7 @@
 #include "pawn.h"
 #include "gameboard.h"
 
-bool Pawn::Attack(int X, int Y)
+bool Pawn::Attack(const int X, const int Y)
 {
     if(GetColor())
     {
@@ -26,7 +26,7 @@ bool Pawn::Attack(int X, int Y)
     return false;
 }
 
-bool Pawn::Forward(int X, int Y)
+bool Pawn::Forward(const int X, const int Y)
 {
     if(GetColor())
     {
@@ -47,7 +47,7 @@ bool Pawn::Forward(int X, int Y)
     return false;
 }
 
-bool Pawn::CheckingValidMove(int X, int Y, bool MovePiece)
+bool Pawn::CheckingValidMove(const int X,const int Y,const bool MovePiece)
 {
     if(Forward(X,Y)||Attack(X,Y))
     {

@@ -21,13 +21,13 @@ public:
 
     const GameField* GetGameField(void) const {return field;}
 
-    void ResetMove(int X, int Y){SetPosX(X);SetPosY(Y);}
-    virtual bool CheckingValidMove(int X, int Y, bool MovePiece = false)	= 0;
+    void ResetMove(const int X,const int Y){SetPosX(X);SetPosY(Y);}
+    virtual bool CheckingValidMove(const int X,const int Y,const bool MovePiece = false)	= 0;
 
     virtual ~ChessPiece(void){}
 protected:
-    void SetPosX(int X) {Xcoordinate = X;}
-    void SetPosY(int Y) {Ycoordinate = Y;}
+    void SetPosX(const int X) {Xcoordinate = X;}
+    void SetPosY(const int Y) {Ycoordinate = Y;}
 
 private:
     uint8_t Xcoordinate = 0;

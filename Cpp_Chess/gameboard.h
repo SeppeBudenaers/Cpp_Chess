@@ -18,10 +18,10 @@ public:
     bool GetTurn (void) const                         {return TurnTracker;}
 
 
-    void RemovePiece(int X, int Y,bool Color);
+    void RemovePiece(const int X, const int Y, const bool Color);
 
-    bool AbleToAttack(int X, int Y,bool Color) const;
-    bool IsBlocked(int X, int Y,bool Color) const;
+    bool AbleToAttack(const int X,const int Y,const bool Color) const;
+    bool IsBlocked(const int X,const int Y, const bool Color) const;
 
     void EndTurn (void) {TurnTracker = !TurnTracker;} // kan ik deze beter beveiligen
 

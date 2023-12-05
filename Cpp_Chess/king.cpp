@@ -2,7 +2,7 @@
 #include "math.h"
 #include "gameboard.h"
 #include <iostream>
-bool King::Moveset(int X, int Y)
+bool King::Moveset(const int X, const int Y)
 {
     if((abs(GetPosX()-X)<=1)&&(abs(GetPosY()-Y)<=1)&&!GetGameField()->IsBlocked(X,Y,GetColor()))
     {
@@ -11,7 +11,7 @@ bool King::Moveset(int X, int Y)
     return false;
 }
 
-bool King::CheckingValidMove(int X, int Y, bool MovePiece)
+bool King::CheckingValidMove(const int X,const int Y,const bool MovePiece)
 {
     if(Moveset(X,Y))
     {

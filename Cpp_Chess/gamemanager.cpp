@@ -1,6 +1,6 @@
 #include "gamemanager.h"
 using namespace chess;
-int GameManager::CharToInt(char Input)
+int GameManager::CharToInt(const char Input)
 {
     switch (Input) {
     case 'a':
@@ -39,7 +39,7 @@ int GameManager::CharToInt(char Input)
     return -1;
 }
 
-bool GameManager::OutOfBounds(int X, int Y)
+bool GameManager::OutOfBounds(const int X,const int Y)
 {
     if((-1<X)&&(X<8)&&(0<Y)&&(Y<9))
     {
@@ -100,7 +100,7 @@ void GameManager::PrintGamePiecePosistion(const vector<ChessPiece*>& list)
     }
 }
 
-bool GameManager::RemoveGamePiece(int X,int Y,vector<ChessPiece*>& list)
+bool GameManager::RemoveGamePiece(const int X,const int Y,vector<ChessPiece*>& list)
 {
     bool RemovingPiece = false;
     int pos = 0;

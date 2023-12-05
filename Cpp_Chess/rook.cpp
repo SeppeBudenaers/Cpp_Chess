@@ -1,7 +1,7 @@
 #include "rook.h"
 #include "gameboard.h"
 
-bool Rook::UpAndDown(int X, int Y)
+bool Rook::UpAndDown(const int X, const int Y)
 {
     bool ValidMove = true;
     if((X-GetPosX()) == 0)
@@ -31,7 +31,7 @@ bool Rook::UpAndDown(int X, int Y)
     return false;
 }
 
-bool Rook::LeftAndRight(int X, int Y)
+bool Rook::LeftAndRight(const int X, const int Y)
 {
     bool ValidMove = true;
     if((Y-GetPosY()) == 0)
@@ -61,7 +61,7 @@ bool Rook::LeftAndRight(int X, int Y)
     return false;
 }
 
-bool Rook::CheckingValidMove(int X, int Y, bool MovePiece)
+bool Rook::CheckingValidMove(const int X, const int Y, const bool MovePiece)
 {
     if(LeftAndRight(X,Y)||UpAndDown(X,Y))
     {

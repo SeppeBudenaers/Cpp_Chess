@@ -9,13 +9,13 @@ public:
 
     bool IsQueen() const {return true;}
 
-    bool CheckingValidMove(int X, int Y, bool MovePiece = false);
+    bool CheckingValidMove(const int X,const int Y,const bool MovePiece = false);
 
     ~Queen() {}
 private:
-    bool UpAndDown(int X, int Y);
-    bool LeftAndRight(int X, int Y);
-    bool Diagonal(int X, int Y);
+    bool UpAndDown(const int X,const int Y);
+    bool LeftAndRight(const int X,const int Y);
+    bool Diagonal(const int X,const int Y);
 };
 
 #endif // QUEEN_H

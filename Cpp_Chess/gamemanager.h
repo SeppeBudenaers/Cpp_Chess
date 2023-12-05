@@ -28,11 +28,11 @@ private:
     //help function of turn
     void PrintGamePiecePosistion(const vector<ChessPiece*> & list);
     coordinates ScanInput(void);
-    bool RemoveGamePiece(int X,int Y,vector<ChessPiece*> & list);
+    bool RemoveGamePiece(const int X,const int Y,vector<ChessPiece*> & list);
     bool CheckingForCheck(const vector<ChessPiece*> & list);
 
 
-    int CharToInt(char input);
+    int CharToInt(const char input);
     bool OutOfBounds(const int X, const int Y);
 };
 #endif // GAMEMANAGER_H

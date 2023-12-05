@@ -9,12 +9,12 @@ public:
 
     bool IsPawn() const {return true;}
 
-    bool CheckingValidMove(int X, int Y, bool MovePiece = false);
+    bool CheckingValidMove(const int X,const int Y,const bool MovePiece = false);
 
     ~Pawn(){}
 private:
-    bool Attack(int X, int Y);
-    bool Forward(int X, int Y);
+    bool Attack(const int X,const int Y);
+    bool Forward(const int X,const int Y);
     bool FirstMove = true;
 };
 

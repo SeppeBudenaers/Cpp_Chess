@@ -9,12 +9,12 @@ public:
 
     bool IsRook() const {return true;}
 
-    bool CheckingValidMove(int X, int Y, bool MovePiece = false);
+    bool CheckingValidMove(const int X,const int Y,const bool MovePiece = false);
 
     ~Rook(){}
 private:
-    bool UpAndDown(int X, int Y);
-    bool LeftAndRight(int X, int Y);
+    bool UpAndDown(const int X,const int Y);
+    bool LeftAndRight(const int X,const int Y);
 };
 
 #endif // ROOK_H

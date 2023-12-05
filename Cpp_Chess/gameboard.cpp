@@ -1,6 +1,6 @@
 #include "gameboard.h"
 
-bool GameField::AbleToAttack(int X, int Y,bool Color) const
+bool GameField::AbleToAttack(const int X,const int Y,const bool Color) const
 {
     for (ChessPiece* I :CurrentState){
         if((I->GetPosX() == X )&&(I->GetPosY() == Y)&&(I->GetColor() != Color)){return true;}
@@ -8,7 +8,7 @@ bool GameField::AbleToAttack(int X, int Y,bool Color) const
     return false;
 }
 
-bool GameField::IsBlocked(int X, int Y,bool Color) const
+bool GameField::IsBlocked(const int X,const int Y,const bool Color) const
 {
     for (ChessPiece* I :CurrentState){
         if((I->GetPosX() == X )&&(I->GetPosY() == Y)&&(I->GetColor() == Color)){return true;}
@@ -36,7 +36,7 @@ GameField::GameField()
     }
 }
 
-void GameField::RemovePiece(int X, int Y, bool Color)
+void GameField::RemovePiece(const int X,const int Y,const bool Color)
 {
     int Pos = 0;
     for (ChessPiece* I :CurrentState)

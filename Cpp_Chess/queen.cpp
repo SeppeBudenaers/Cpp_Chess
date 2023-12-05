@@ -1,7 +1,7 @@
 #include "queen.h"
 #include "gameboard.h"
 
-bool Queen::UpAndDown(int X, int Y)
+bool Queen::UpAndDown(const int X, const int Y)
 {
     bool ValidMove = true;
     if((X-GetPosX()) == 0)
@@ -31,7 +31,7 @@ bool Queen::UpAndDown(int X, int Y)
     return false;
 }
 
-bool Queen::LeftAndRight(int X, int Y)
+bool Queen::LeftAndRight(const int X, const int Y)
 {
     bool ValidMove = true;
     if((Y-GetPosY()) == 0)
@@ -61,7 +61,7 @@ bool Queen::LeftAndRight(int X, int Y)
     return false;
 }
 
-bool Queen::Diagonal(int X, int Y)
+bool Queen::Diagonal(const int X, const int Y)
 {
     bool ValidMove = true;
     if((abs(GetPosX()-X) == abs(GetPosY()-Y)) && ((GetPosX()-X) != 0))
@@ -125,7 +125,7 @@ bool Queen::Diagonal(int X, int Y)
     return false;
 }
 
-bool Queen::CheckingValidMove(int X, int Y, bool MovePiece)
+bool Queen::CheckingValidMove(const int X, const int Y, const bool MovePiece)
 {
     if(LeftAndRight(X,Y)||UpAndDown(X,Y)||Diagonal(X,Y))
     {

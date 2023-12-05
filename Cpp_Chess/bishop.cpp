@@ -3,7 +3,7 @@
 #include "math.h"
 #include <iostream>
 
-bool Bishop::Diagonal(int X, int Y)
+bool Bishop::Diagonal(const int X, const int Y)
 {
     bool ValidMove = true;
     if((abs(GetPosX()-X) == abs(GetPosY()-Y)) && ((GetPosX()-X) != 0))
@@ -67,7 +67,7 @@ bool Bishop::Diagonal(int X, int Y)
     return false;
 }
 
-bool Bishop::CheckingValidMove(int X, int Y, bool MovePiece)
+bool Bishop::CheckingValidMove(const int X,const int Y,const bool MovePiece)
 {
     if(Diagonal(X,Y))
     {
