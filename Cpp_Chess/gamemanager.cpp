@@ -5,50 +5,58 @@
 using namespace chess;
 uint8_t GameManager::CharToUint8_T(const char Input)
 {
-    uint8_t thefuck;
+    uint8_t temp;
     switch (Input) {
     case 'a':
     case 'A':
-        cout<<"debug setting temp to 70"<<endl;
-        thefuck =  0;
-        cout<<"debug temp"<<+thefuck<<endl;
+        temp =  0;
         break;
     case 'b':
     case 'B':
-        thefuck =  1;
+    case '1':
+        temp =  1;
         break;
     case 'c':
     case 'C':
-        thefuck =  2;
+    case '2':
+        temp =  2;
         break;
     case 'd':
     case 'D':
-        thefuck =  3;
-        break;
+    case '3':
+        temp =  3;
+        break;    
     case 'e':
     case 'E':
-        thefuck = 4;
+    case '4':
+        temp = 4;
         break;
     case 'f':
     case 'F':
-        thefuck =  5;
+    case '5':
+        temp =  5;
         break;
     case 'g':
     case 'G':
-        thefuck =  6;
+    case '6':
+        temp =  6;
         break;
     case 'h':
     case 'H':
-        thefuck =  7;
+    case '7':
+        temp =  7;
+        break;
+    case '8':
+        temp =  8;
         break;
     }
-    cout<<"debug temp"<<thefuck<<endl;
-    return thefuck;
+    return temp;
 }
 
 bool GameManager::OutOfBounds(const uint8_t X,const uint8_t Y)
 {
-    if((-1<X)&&(X<8)&&(0<Y)&&(Y<9))
+    cout<<"Debug out of bounds"<<int(X)<<+Y<<" "<<(0<=X)<<(X<8)<<(0<Y)<<(Y<9)<<endl;
+    if((0<=X)&&(X<8)&&(0<Y)&&(Y<9))
     {
         return false;
     }
@@ -61,15 +69,15 @@ bool GameManager::OutOfBounds(const uint8_t X,const uint8_t Y)
 Coordinates<uint8_t,uint8_t> GameManager::ScanInput()
 {
     bool CordinatesAquired = false;
-    char charXinput= 0;
     uint8_t Xinput = 0;
     uint8_t Yinput = 0;
     Coordinates<uint8_t,uint8_t> Input;
 
     while (!CordinatesAquired) { // bug dat cin geen tweede keer word gevraagt
-        cin>>charXinput>>Yinput;
-        Xinput = CharToUint8_T(charXinput);
-        cout<<"Debug"<<+Xinput<<endl;
+        cin>>Xinput>>Yinput;
+        Xinput = CharToUint8_T(Xinput);
+        Yinput = CharToUint8_T(Yinput);
+        cout<<"Debug"<<+Xinput<<Yinput<<endl;
         Input.setX(Xinput);
         Input.setY(Yinput);
         cout<<"Debug"<<Input.GetX()<<Input.GetY()<<endl;

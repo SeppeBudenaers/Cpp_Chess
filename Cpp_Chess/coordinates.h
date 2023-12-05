@@ -10,8 +10,8 @@ public:
     T1 GetX(void) const {return Xcoordinate;}
     T2 GetY(void) const {return Ycoordinate;}
 
-    void setX(const T1& X) {Xcoordinate = X;std::cout<<"Debug"<<+X<<"="<<+Xcoordinate<<std::endl;}
-    void setY(const T2& Y) {Ycoordinate = Y;std::cout<<"Debug"<<Y<<"="<<Ycoordinate<<std::endl;}
+    void setX(const T1& X) {Xcoordinate = X;}
+    void setY(const T2& Y) {Ycoordinate = Y;}
 
     ~Coordinates(void) {}
 private:
