@@ -5,52 +5,15 @@
 using namespace chess;
 uint8_t GameManager::CharToUint8_T(const char Input)
 {
-    uint8_t temp;
-    switch (Input) {
-    case 'a':
-    case 'A':
-        temp =  0;
-        break;
-    case 'b':
-    case 'B':
-    case '1':
-        temp =  1;
-        break;
-    case 'c':
-    case 'C':
-    case '2':
-        temp =  2;
-        break;
-    case 'd':
-    case 'D':
-    case '3':
-        temp =  3;
-        break;    
-    case 'e':
-    case 'E':
-    case '4':
-        temp = 4;
-        break;
-    case 'f':
-    case 'F':
-    case '5':
-        temp =  5;
-        break;
-    case 'g':
-    case 'G':
-    case '6':
-        temp =  6;
-        break;
-    case 'h':
-    case 'H':
-    case '7':
-        temp =  7;
-        break;
-    case '8':
-        temp =  8;
-        break;
+    if (isdigit(Input))
+    {
+        return static_cast<uint8_t>(Input - '1');
     }
-    return temp;
+    else if (isalpha(Input))
+    {
+        return static_cast<uint8_t>(tolower(Input) - 'a');
+    }
+    return 0;
 }
 
 bool GameManager::OutOfBounds(const uint8_t X,const uint8_t Y)
@@ -77,10 +40,8 @@ Coordinates<uint8_t,uint8_t> GameManager::ScanInput()
         cin>>Xinput>>Yinput;
         Xinput = CharToUint8_T(Xinput);
         Yinput = CharToUint8_T(Yinput);
-        cout<<"Debug"<<+Xinput<<Yinput<<endl;
         Input.setX(Xinput);
         Input.setY(Yinput);
-        cout<<"Debug"<<Input.GetX()<<Input.GetY()<<endl;
         if(!OutOfBounds(Input.GetX(),Input.GetY())){CordinatesAquired = true;}
         else{cout<<"Cordinates are out of bounds."<<endl;}
     }
