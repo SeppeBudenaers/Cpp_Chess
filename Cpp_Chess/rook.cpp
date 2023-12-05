@@ -75,8 +75,7 @@ bool Rook::CheckingValidMove(const Coordinates<uint8_t,uint8_t>& Input, const bo
     {
         if(MovePiece)
         {
-            SetPosX(Input.GetX());
-            SetPosY(Input.GetY());
+            SetPos(Input);
         }
         return true;
     }

@@ -20,8 +20,7 @@ bool Knight::CheckingValidMove(const Coordinates<uint8_t,uint8_t>& Input, const 
     {
         if(MovePiece)
         {
-            SetPosX(Input.GetX());
-            SetPosY(Input.GetY());
+            SetPos(Input);
         }
         return true;
     }

@@ -27,8 +27,7 @@ public:
 
     virtual ~ChessPiece(void){}
 protected:
-    void SetPosX(const int X) {coordinates.setX(X);}
-    void SetPosY(const int Y) {coordinates.setY(Y);}
+    void SetPos(const Coordinates<uint8_t,uint8_t>& Input) {coordinates.setX(Input.GetX());coordinates.setY(Input.GetY());}
 
 private:
     Coordinates<uint8_t,uint8_t> coordinates;

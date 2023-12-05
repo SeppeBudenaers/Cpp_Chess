@@ -74,8 +74,7 @@ bool Bishop::CheckingValidMove(const Coordinates<uint8_t,uint8_t>& Input,const b
     {
         if(MovePiece)
         {
-            SetPosX(Input.GetX());
-            SetPosY(Input.GetY());
+            SetPos(Input);
         }
         return true;
     }

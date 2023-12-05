@@ -108,7 +108,6 @@ bool GameManager::CheckingForCheck(const vector<ChessPiece*>& list)
         {
             King.setX(I->GetPosX());
             King.setY(I->GetPosY());
-            cout<<"debug check:"<<+King.GetX()<<+King.GetY()<<endl;
             break;
         }
     }
