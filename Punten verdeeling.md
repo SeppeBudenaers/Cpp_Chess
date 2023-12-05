@@ -43,4 +43,15 @@
 - [ ] useful exception handling
 - [ ] useful usage of lambda function
 - [ ] useful usage of threads
+## Uitbreiding 0/10
+- [ ] useful Qt class
+- [ ] useful usage of signals/slots
+- [ ] test-driven development (= written test plan or unit tests)
+- [ ] solve bug ticket (with pull request or commit message issue link and issue branch)
+- [ ] report a bug ticket on another project
+- [ ] usage of a GUI
+- [ ] usage of OpenGL or other 3D engine
+- [ ] useful usage of an external library (not Qt)
+- [ ] project that communicates (e.g. UART, BT) with hardware
+- [ ] a nice extra that you think that should deserve grading (stuff you put time in and is not rewarded by an item above)
 
