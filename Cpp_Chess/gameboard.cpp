@@ -1,4 +1,10 @@
 #include "gameboard.h"
+#include "knight.h"
+#include "bishop.h"
+#include "king.h"
+#include "queen.h"
+#include "pawn.h"
+#include "rook.h"
 
 bool GameField::AbleToAttack(const Coordinates<uint8_t,uint8_t>& Input,const bool Color) const
 {

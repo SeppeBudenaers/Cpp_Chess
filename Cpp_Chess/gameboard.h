@@ -3,12 +3,8 @@
 #include <iostream>
 #include <vector>
 #include "coordinates.h"
-#include "rook.h"
-#include "knight.h"
-#include "bishop.h"
-#include "king.h"
-#include "queen.h"
-#include "pawn.h"
+#include"chesspiece.h"
+
 using namespace std;
 class GameField
 {

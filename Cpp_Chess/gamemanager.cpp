@@ -1,6 +1,7 @@
 #include "gamemanager.h"
 #include "coordinates.h"
 #include <cstdint>
+#include <fstream>
 
 using namespace chess;
 uint8_t GameManager::CharToUint8_T(const char Input)
@@ -49,33 +50,8 @@ void GameManager::ScanInput(Coordinates<uint8_t,uint8_t>& Input)
 void GameManager::PrintGamePiecePosistion(const vector<ChessPiece*>& list)
 {
     for (ChessPiece* I : list) {
-        cout<<"Co ords of game piece is : ";
-        switch (I->GetPosX()) {
-        case 0:
-            cout<<"a"<<I->GetPosY();
-            break;
-        case 1:
-            cout<<"b"<<I->GetPosY();
-            break;
-        case 2:
-            cout<<"c"<<I->GetPosY();
-            break;
-        case 3:
-            cout<<"d"<<I->GetPosY();
-            break;
-        case 4:
-            cout<<"e"<<I->GetPosY();
-            break;
-        case 5:
-            cout<<"f"<<I->GetPosY();
-            break;
-        case 6:
-            cout<<"g"<<I->GetPosY();
-            break;
-        case 7:
-            cout<<"h"<<I->GetPosY();
-            break;
-        }
+        cout<<"Co ords of game piece is : "<<uint8_t(I->GetPosX()+'a')<<(+I->GetPosY());
+
         if(I->GetColor() == 0){cout<<" And the color is : White"<<endl;}
         else {cout<<" And the color is : Black"<<endl;}
     }
@@ -101,26 +77,47 @@ bool GameManager::RemoveGamePiece(const Coordinates<uint8_t,uint8_t>& Input,vect
 bool GameManager::CheckingForCheck(const vector<ChessPiece*>& list)
 {
     bool Check = false;
-    Coordinates<uint8_t,uint8_t> King;
+    ChessPiece* King = NULL;
     for (ChessPiece* I :list)
     {
         if((I->GetColor() == gamefield.GetTurn())&&I->IsKing())
         {
-            King.setX(I->GetPosX());
-            King.setY(I->GetPosY());
+            King = I;
             break;
         }
     }
-    for (ChessPiece* I :list)
+    if(King != NULL)
     {
-        if((I->GetColor() !=gamefield.GetTurn()) && I->CheckingValidMove(King))
+        for (ChessPiece* I :list)
         {
-            cout<<"debug check:"<<I->GetPosX()<<I->GetPosY()<<endl;
-
-            Check = true;
+            if((I->GetColor() !=gamefield.GetTurn()) && I->CheckingValidMove(King->GetPos()))
+            {
+                cout<<"debug check:"<<I->GetPosX()<<I->GetPosY()<<endl;
+                Check = true;
+            }
         }
     }
+    else
+    {
+        cout<<"Error no king"<<endl;
+        Check = true;
+    }
     return Check;
+}
+
+void GameManager::LoggingMove(Coordinates<uint8_t, uint8_t> &Begin, Coordinates<uint8_t, uint8_t> &End)
+{
+    ofstream myfile;
+    myfile.open ("xample.txt",ios::app);
+    if(gamefield.GetTurn())
+    {
+        myfile <<"black "<<uint8_t(Begin.GetX()+'a')<<(+Begin.GetY())<<" TO "<<uint8_t(End.GetX()+'a')<<(+End.GetY())<<endl;
+    }
+    else
+    {
+        myfile <<"white "<<uint8_t(Begin.GetX()+'a')<<(+Begin.GetY())<<" TO "<<uint8_t(End.GetX()+'a')<<(+End.GetY())<<endl;
+    }
+    myfile.close();
 }
 
 void GameManager::Turn()
@@ -138,6 +135,7 @@ void GameManager::Turn()
         bool Check = false;
 
         vector<ChessPiece*> list = gamefield.GetVector();
+        ChessPiece* SelectedPiece = NULL;
         Coordinates<uint8_t,uint8_t> EndPosition;
         Coordinates<uint8_t,uint8_t> BeginPosition;
 
@@ -151,22 +149,24 @@ void GameManager::Turn()
         {
         if((I->GetPosX() == BeginPosition.GetX() )&&(I->GetPosY() == BeginPosition.GetY())&&(I->GetColor() == gamefield.GetTurn()))
             {
+                SelectedPiece = I;
                 FoundPiece = true;
-                //end position
-                cout<<"To ?:";
-                ScanInput(EndPosition);
-                if(!((BeginPosition.GetX() == EndPosition.GetX())&&(BeginPosition.GetY() == EndPosition.GetY())))
-                {
-                    ValidMove = I->CheckingValidMove(EndPosition,true);
-                    // is het intersant om bv if(Move()){valid = true}else{break}? om niet nodeloos functies te callen als het toch al invalid is
-                    RemovingPiece = RemoveGamePiece(EndPosition,list);
-                    //same comment
-                    Check = CheckingForCheck(list);
-                    //same comment
-                }
-                else{SamePiece = true;}
             }
         }
+
+        //end position
+        cout<<"To ?:";
+        ScanInput(EndPosition);
+        if(!SelectedPiece->SamePiece(EndPosition,list))
+        {
+            ValidMove = SelectedPiece->CheckingValidMove(EndPosition,true);
+            // is het intersant om bv if(Move()){valid = true}else{break}? om niet nodeloos functies te callen als het toch al invalid is
+            RemovingPiece = RemoveGamePiece(EndPosition,list);
+            //same comment
+            Check = CheckingForCheck(list);
+            //same comment
+        }
+        else{SamePiece = true;}
 
         //returning errors
         if(!FoundPiece){cout<<"Selected invalid piece"<<endl;}
@@ -179,22 +179,17 @@ void GameManager::Turn()
 
         if(FoundPiece && ValidMove && !SamePiece && !Check)
         {
-            cout<<"Valid"<<endl;
-            TurnCompleted = true;
             if(RemovingPiece)
             {
                 gamefield.RemovePiece(EndPosition,!gamefield.GetTurn());
             }
+            cout<<"Valid"<<endl;
+            LoggingMove(BeginPosition,EndPosition);
+            TurnCompleted = true;
         }
         else
         {
-            for (ChessPiece* I :list){
-                if((I->GetPosX() == EndPosition.GetX())&&(I->GetPosY() == EndPosition.GetY())&&(I->GetColor() == gamefield.GetTurn()))
-                {
-                    I->ResetMove(BeginPosition);
-                }
-            }
-
+            SelectedPiece->ResetMove(BeginPosition);
         }
     }
     gamefield.EndTurn();

@@ -26,7 +26,7 @@ private:
     void ScanInput(Coordinates<uint8_t,uint8_t>& Input);
     bool RemoveGamePiece(const Coordinates<uint8_t,uint8_t>& Input,vector<ChessPiece*> & list);
     bool CheckingForCheck(const vector<ChessPiece*> & list);
-
+    void LoggingMove(Coordinates<uint8_t,uint8_t>& Begin, Coordinates<uint8_t,uint8_t>& End);
 
     uint8_t CharToUint8_T(const char input);
     bool OutOfBounds(const Coordinates<uint8_t,uint8_t>& Input);

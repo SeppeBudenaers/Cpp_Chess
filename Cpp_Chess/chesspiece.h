@@ -1,16 +1,18 @@
 #ifndef CHESSPIECE_H
 #define CHESSPIECE_H
 #include "coordinates.h"
+#include <vector>
 #include <cstdint>
 class GameField;
-
+using namespace std;
 class ChessPiece
 {
 public:
     ChessPiece(int X, int Y, bool Color,const GameField*gamefield)    : Color(Color),field(gamefield) {coordinates.setX(X);coordinates.setY(Y);}
 
-    int GetPosX(void) const {return coordinates.GetX();}
-    int GetPosY(void) const {return coordinates.GetY();}
+    uint8_t GetPosX(void) const {return coordinates.GetX();}
+    uint8_t GetPosY(void) const {return coordinates.GetY();}
+    Coordinates<uint8_t,uint8_t> GetPos(void) const{return coordinates;}
     bool GetColor(void) const {return Color;}
 
     virtual bool IsBishop(void) const {return false;}
@@ -22,7 +24,8 @@ public:
 
     const GameField* GetGameField(void) const {return field;}
 
-    void ResetMove(const Coordinates<uint8_t,uint8_t>& Input){coordinates.setX(Input.GetY());coordinates.setY(Input.GetY());}
+    bool SamePiece(const Coordinates<uint8_t,uint8_t>& Input,const vector<ChessPiece*> & list);
+    void ResetMove(const Coordinates<uint8_t,uint8_t>& Input){coordinates.setX(Input.GetX());coordinates.setY(Input.GetY());}
     virtual bool CheckingValidMove(const Coordinates<uint8_t,uint8_t>& Input,const bool MovePiece = false)	= 0;
 
     virtual ~ChessPiece(void){}
