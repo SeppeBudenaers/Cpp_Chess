@@ -143,6 +143,7 @@ bool Queen::CheckingValidMove(const Coordinates<uint8_t,uint8_t>& Input, const b
     {
         if(MovePiece)
         {
+            SetFirstMove();
             SetPos(Input);
         }
         return true;

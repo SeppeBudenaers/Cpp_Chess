@@ -75,6 +75,7 @@ bool Rook::CheckingValidMove(const Coordinates<uint8_t,uint8_t>& Input, const bo
     {
         if(MovePiece)
         {
+            SetFirstMove();
             SetPos(Input);
         }
         return true;

@@ -9,6 +9,7 @@ public:
 
     bool IsKing() const {return true;}
 
+
     bool CheckingValidMove(const Coordinates<uint8_t,uint8_t>& Input,const bool MovePiece = false);
 
     ~King(){}

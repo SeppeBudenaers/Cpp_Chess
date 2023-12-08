@@ -29,7 +29,9 @@ private:
     void LoggingMove(Coordinates<uint8_t,uint8_t>& Begin, Coordinates<uint8_t,uint8_t>& End);
 
     //Special moves
+    bool Castle(Coordinates<uint8_t,uint8_t>& Begin, Coordinates<uint8_t,uint8_t>& End);
     void PromotingPawn(ChessPiece*& Piece);
+
 
     //help function of turn
     uint8_t CharToUint8_T(const char input);

@@ -15,7 +15,6 @@ public:
 private:
     bool Attack(const Coordinates<uint8_t,uint8_t>& Input);
     bool Forward(const Coordinates<uint8_t,uint8_t>& Input);
-    bool FirstMove = true;
 };
 
 #endif // PAWN_H

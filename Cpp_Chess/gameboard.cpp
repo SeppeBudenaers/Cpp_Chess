@@ -30,15 +30,15 @@ GameField::GameField()
         if(I == 1 ){Y = 8 ; YPawn = 7;}
         CurrentState.push_back(new Rook(a,Y,I,this));
         CurrentState.push_back(new Rook(h,Y,I,this));
-        CurrentState.push_back(new Knight(b,Y,I,this));
-        CurrentState.push_back(new Knight(g,Y,I,this));
-        CurrentState.push_back(new Bishop(c,Y,I,this));
-        CurrentState.push_back(new Bishop(f,Y,I,this));
+//        CurrentState.push_back(new Knight(b,Y,I,this));
+//        CurrentState.push_back(new Knight(g,Y,I,this));
+//        CurrentState.push_back(new Bishop(c,Y,I,this));
+//        CurrentState.push_back(new Bishop(f,Y,I,this));
         CurrentState.push_back(new King(e,Y,I,this));
         CurrentState.push_back(new Queen(d,Y,I,this));
-        for (int var = 0; var < 8; ++var) {
-            CurrentState.push_back(new Pawn(var,YPawn,I,this));
-        }
+//        for (int var = 0; var < 8; ++var) {
+//            CurrentState.push_back(new Pawn(var,YPawn,I,this));
+//        }
     }
 }
 

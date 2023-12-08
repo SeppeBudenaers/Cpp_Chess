@@ -120,6 +120,82 @@ void GameManager::LoggingMove(Coordinates<uint8_t, uint8_t> &Begin, Coordinates<
     myfile.close();
 }
 
+bool GameManager::Castle(Coordinates<uint8_t, uint8_t> &Begin, Coordinates<uint8_t, uint8_t> &End)
+{
+    ChessPiece* King = NULL;
+    ChessPiece* Rook = NULL;
+    for (ChessPiece* I : gamefield.GetVector())
+    {
+        if(((I->GetPosX() == Begin.GetX())&&(I->GetPosY() == Begin.GetY()))||((I->GetPosX() == End.GetX())&&(I->GetPosY() == End.GetY())))
+        {
+            if(I->IsKing()){King = I;cout<<"found King"<<King->GetPosX()<<King->GetPosY()<<endl;}
+            else if(I->IsRook()){Rook = I;cout<<"found Rook"<<Rook->GetPosX()<<Rook->GetPosY()<<endl;}
+        }
+    }
+
+    if((King != NULL)&&(Rook != NULL)) //correct way to input to trigger castel
+    {
+        cout<<"found Pieces"<<King->GetFirstMove()<<Rook->GetFirstMove()<<CheckingForCheck(gamefield.GetVector())<<endl;
+        if(King->GetFirstMove() && Rook->GetFirstMove() && !CheckingForCheck(gamefield.GetVector()))
+        {
+            cout<<"first moves and not checked"<<endl;
+            bool Check = false;
+            int Direction = (Rook->GetPosX() - King->GetPosX());
+            if(Direction > 0) //Rechts castlen
+            {
+                Coordinates<uint8_t, uint8_t> KingEndPos((Rook->GetPosX()-1),Rook->GetPosY());
+                Coordinates<uint8_t, uint8_t> RookEndPos((Rook->GetPosX()-2),Rook->GetPosY());
+                if(Rook->CheckingValidMove(KingEndPos)&&Rook->CheckingValidMove(RookEndPos))
+                {
+                    cout<<"not blocked path right"<<endl;
+                    for (ChessPiece* I :gamefield.GetVector())
+                    {
+                        if((I->GetColor() !=gamefield.GetTurn()) && (I->CheckingValidMove(KingEndPos)||I->CheckingValidMove(RookEndPos)))
+                        {
+                            cout<<"debug check:"<<I->GetPosX()<<I->GetPosY()<<endl;
+                            Check = true;
+                        }
+                    }
+                    if(!Check)
+                    {
+                        cout<<"not checked on path"<<endl;
+                        King->ResetMove(KingEndPos);
+                        Rook->ResetMove(RookEndPos);
+                        return true;
+                    }
+                }
+            }
+            else if(Direction < 0) //Links castlen
+            {
+                Coordinates<uint8_t, uint8_t> Pos1((Rook->GetPosX()+1),Rook->GetPosY());
+                Coordinates<uint8_t, uint8_t> KingEndPos((Rook->GetPosX()+2),Rook->GetPosY());
+                Coordinates<uint8_t, uint8_t> RookEndPos((Rook->GetPosX()+3),Rook->GetPosY());
+                if(Rook->CheckingValidMove(Pos1)&&Rook->CheckingValidMove(KingEndPos)&&Rook->CheckingValidMove(RookEndPos))
+                {
+                    cout<<"not blocked path Left"<<endl;
+                    for (ChessPiece* I :gamefield.GetVector())
+                    {
+                        if((I->GetColor() !=gamefield.GetTurn()) && (I->CheckingValidMove(RookEndPos)||I->CheckingValidMove(KingEndPos)))
+                        {
+                            cout<<"debug check:"<<I->GetPosX()<<I->GetPosY()<<endl;
+                            Check = true;
+                        }
+                    }
+                    if(!Check)
+                    {
+                        cout<<"not checked on path"<<endl;
+                        King->ResetMove(KingEndPos);
+                        Rook->ResetMove(RookEndPos);
+                        return true;
+                    }
+                }
+
+            }
+        }
+    }
+    return false;
+}
+
 void GameManager::PromotingPawn(ChessPiece* & Piece)
 {
 
@@ -201,6 +277,10 @@ void GameManager::Turn()
             //same comment
             }
 
+            if(!ValidMove)
+            {
+                ValidMove = Castle(BeginPosition,EndPosition);
+            }
             //special moves
             PromotingPawn(SelectedPiece);
         }

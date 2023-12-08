@@ -15,12 +15,17 @@ public:
     Coordinates<uint8_t,uint8_t> GetPos(void) const{return coordinates;}
     bool GetColor(void) const {return Color;}
 
+    bool GetFirstMove(void) const {return FirstMove;}
+    void SetFirstMove(void) {FirstMove = false;}
+
     virtual bool IsBishop(void) const {return false;}
     virtual bool IsKing(void) const {return false;}
     virtual bool IsKnight(void) const {return false;}
     virtual bool IsPawn(void) const {return false;}
     virtual bool IsQueen(void) const {return false;}
     virtual bool IsRook(void) const {return false;}
+
+
 
     const GameField* GetGameField(void) const {return field;}
 
@@ -36,6 +41,7 @@ private:
     Coordinates<uint8_t,uint8_t> coordinates;
     const bool Color = false; //white = false
     const GameField* field;
+    bool FirstMove = true;
 
 };
 #endif // CHESSPIECE_H
