@@ -57,6 +57,30 @@ void GameField::RemovePiece(const Coordinates<uint8_t,uint8_t>& Input ,const boo
     CurrentState.erase(CurrentState.begin()+Pos);
 }
 
+void GameField::AddPiece(const Coordinates<uint8_t, uint8_t> &Input, const bool Color, const char Piece)
+{
+    switch (Piece) {
+    case 'p':
+        CurrentState.push_back(new Pawn(Input.GetX(),Input.GetY(),Color,this));
+        break;
+    case 'k':
+        CurrentState.push_back(new Knight(Input.GetX(),Input.GetY(),Color,this));
+        break;
+    case 'b':
+        CurrentState.push_back(new Bishop(Input.GetX(),Input.GetY(),Color,this));
+        break;
+    case 'r':
+        CurrentState.push_back(new Rook(Input.GetX(),Input.GetY(),Color,this));
+        break;
+    case 'q':
+        CurrentState.push_back(new Queen(Input.GetX(),Input.GetY(),Color,this));
+        break;
+    case 'x':
+        CurrentState.push_back(new King(Input.GetX(),Input.GetY(),Color,this));
+        break;
+    }
+}
+
 GameField::~GameField()
 {
     for (ChessPiece* I :CurrentState)

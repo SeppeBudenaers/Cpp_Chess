@@ -16,6 +16,7 @@ public:
 
 
     void RemovePiece(const Coordinates<uint8_t,uint8_t>& Input, const bool Color);
+    void AddPiece(const Coordinates<uint8_t,uint8_t>& Input, const bool Color,const char Piece);
 
     bool AbleToAttack(const Coordinates<uint8_t,uint8_t>& Input,const bool Color) const;
     bool IsBlocked(const Coordinates<uint8_t,uint8_t>& Input, const bool Color) const;

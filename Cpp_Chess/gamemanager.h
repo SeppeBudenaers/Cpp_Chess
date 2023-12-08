@@ -28,6 +28,10 @@ private:
     bool CheckingForCheck(const vector<ChessPiece*> & list);
     void LoggingMove(Coordinates<uint8_t,uint8_t>& Begin, Coordinates<uint8_t,uint8_t>& End);
 
+    //Special moves
+    void PromotingPawn(ChessPiece*& Piece);
+
+    //help function of turn
     uint8_t CharToUint8_T(const char input);
     bool OutOfBounds(const Coordinates<uint8_t,uint8_t>& Input);
 };

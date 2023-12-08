@@ -120,6 +120,37 @@ void GameManager::LoggingMove(Coordinates<uint8_t, uint8_t> &Begin, Coordinates<
     myfile.close();
 }
 
+void GameManager::PromotingPawn(ChessPiece* & Piece)
+{
+
+    if(Piece->IsPawn() && ((!Piece->GetColor() && (Piece->GetPosY() == 8)) || (Piece->GetColor() && (Piece->GetPosY() == 1))) )
+    {
+
+        Coordinates<uint8_t, uint8_t> Position(Piece->GetPosX(),Piece->GetPosY());
+        bool Color = Piece->GetColor();
+        char Piece;
+
+        bool NewPiece = false;
+        while(!NewPiece){
+            cout<<"Promoting pawn :" <<endl;
+            cout<<"Knight = k" <<endl;
+            cout<<"Bishop = b" <<endl;
+            cout<<"Rook   = r" <<endl;
+            cout<<"Queen  = q" <<endl;
+            cout<<"please select a piece for position "<< uint8_t(Position.GetX() + 'a')<<(+Position.GetY()) << " :";
+            cin>>Piece;
+            Piece = tolower(Piece);
+            if((Piece = 'k')||(Piece = 'b')||(Piece = 'r')||(Piece = 'q'))
+            {
+                NewPiece = true;
+            }
+            else{cout<<"Invalid action"<<endl;}
+        }
+        gamefield.RemovePiece(Position,Color);
+        gamefield.AddPiece(Position,Color,Piece);
+    }
+}
+
 void GameManager::Turn()
 {
     bool TurnCompleted = false;
@@ -144,7 +175,6 @@ void GameManager::Turn()
         if(gamefield.GetTurn()){cout<<"Blacks turn"<<endl<<"Please enter pawn that you want to move :";}
         else{cout<<"Whites turn"<<endl<<"Please enter pawn that you want to move :";}
         ScanInput(BeginPosition);
-
         for (ChessPiece* I :list)
         {
         if((I->GetPosX() == BeginPosition.GetX() )&&(I->GetPosY() == BeginPosition.GetY())&&(I->GetColor() == gamefield.GetTurn()))
@@ -154,20 +184,26 @@ void GameManager::Turn()
             }
         }
 
-        //end position
-        cout<<"To ?:";
-        ScanInput(EndPosition);
-        if(!SelectedPiece->SamePiece(EndPosition,list))
+
+        if(FoundPiece)
         {
+            //end position
+            cout<<"To ?:";
+            ScanInput(EndPosition);
+            SamePiece = SelectedPiece->SamePiece(EndPosition,list);
+            if(!SamePiece)
+            {
             ValidMove = SelectedPiece->CheckingValidMove(EndPosition,true);
             // is het intersant om bv if(Move()){valid = true}else{break}? om niet nodeloos functies te callen als het toch al invalid is
             RemovingPiece = RemoveGamePiece(EndPosition,list);
             //same comment
             Check = CheckingForCheck(list);
             //same comment
-        }
-        else{SamePiece = true;}
+            }
 
+            //special moves
+            PromotingPawn(SelectedPiece);
+        }
         //returning errors
         if(!FoundPiece){cout<<"Selected invalid piece"<<endl;}
 
@@ -187,7 +223,7 @@ void GameManager::Turn()
             LoggingMove(BeginPosition,EndPosition);
             TurnCompleted = true;
         }
-        else
+        else if(FoundPiece)
         {
             SelectedPiece->ResetMove(BeginPosition);
         }
