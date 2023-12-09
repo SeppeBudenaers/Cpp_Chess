@@ -27,7 +27,7 @@
 - [X] useful template function or class
 - [ ] useful friend function or class
 
-## C++ 11/15
+## C++ 12/15
 - [x] everything in one or more self-made namespace(s)
 - [x] 2 useful unsigned chars or other better usage of memory efficient type **(for coordinates?)** is good need to change it 
 - [x] at least 4 useful const references for variables
@@ -36,7 +36,7 @@
 - [x] dynamic memory allocation (new)
 - [x] dynamic memory removing (delete)
 - [X] 2 useful (modern) call-by-references 
-- [ ] useful string class usage **VIABLE**
+- [X] useful string class usage **VIABLE**
 - [X] useful container class
 - [x] useful usage of nullptr
 - [x] useful usage of (modern) file-I/O 
