@@ -1,5 +1,6 @@
 #include "gamemanager.h"
 #include "coordinates.h"
+#include "math.h"
 #include <cstdint>
 #include <fstream>
 
@@ -55,6 +56,52 @@ void GameManager::PrintGamePiecePosistion(const vector<ChessPiece*>& list)
         if(I->GetColor() == 0){cout<<" And the color is : White"<<endl;}
         else {cout<<" And the color is : Black"<<endl;}
     }
+}
+
+void GameManager::PrintBoard(const vector<ChessPiece *> &list)
+{
+    string BlackPiece = "\033[38;5;232m";
+    string WhitePiece = "\033[38;5;255m";
+    string BlackSquare = "\033[48;5;144m";
+    string WhiteSquare = "\033[48;5;239m";
+    string Reset = "\033[0m";
+
+    cout<<"   a  b  c  d  e  f  g  h"<<endl;
+    cout<<" +------------------------+"<<endl;
+    for (int Y = 8; Y > 0; --Y) {
+        string Buffer;
+        Buffer.push_back(char(Y + '0'));
+        Buffer.push_back(char('|'));
+        for (int X = 0; X < 8; ++X) {
+            bool FoundPiece = false;
+            if((X+Y)%2 == 0){Buffer.append(WhiteSquare);}
+            else{Buffer.append(BlackSquare);}
+            for (ChessPiece* I :list)
+            {
+                if((I->GetPosX() == X)&&(I->GetPosY() == Y))
+                {
+                    if(!I->GetColor()){Buffer.append(WhitePiece);}
+                    else{Buffer.append(BlackPiece);}
+                    Buffer.push_back(' ');
+                    Buffer.append("\033[1m");
+                    Buffer.push_back(I->IsPiece());
+                    Buffer.push_back(' ');
+                    FoundPiece = true;
+                    break;
+                }
+            }
+            if(!FoundPiece)
+            {
+             Buffer.append("   ");
+            }
+           Buffer.append(Reset);
+        }
+        Buffer.push_back(char('|'));
+        Buffer.push_back(char(Y + '0'));
+        cout<<Buffer<<endl;
+    }
+    cout<<" +------------------------+"<<endl;
+    cout<<"   a  b  c  d  e  f  g  h"<<endl;
 }
 
 bool GameManager::RemoveGamePiece(const Coordinates<uint8_t,uint8_t>& Input,vector<ChessPiece*>& list)
@@ -128,17 +175,15 @@ bool GameManager::Castle(Coordinates<uint8_t, uint8_t> &Begin, Coordinates<uint8
     {
         if(((I->GetPosX() == Begin.GetX())&&(I->GetPosY() == Begin.GetY()))||((I->GetPosX() == End.GetX())&&(I->GetPosY() == End.GetY())))
         {
-            if(I->IsKing()){King = I;cout<<"found King"<<King->GetPosX()<<King->GetPosY()<<endl;}
-            else if(I->IsRook()){Rook = I;cout<<"found Rook"<<Rook->GetPosX()<<Rook->GetPosY()<<endl;}
+            if(I->IsKing()){King = I;}
+            else if(I->IsRook()){Rook = I;}
         }
     }
 
     if((King != NULL)&&(Rook != NULL)) //correct way to input to trigger castel
     {
-        cout<<"found Pieces"<<King->GetFirstMove()<<Rook->GetFirstMove()<<CheckingForCheck(gamefield.GetVector())<<endl;
         if(King->GetFirstMove() && Rook->GetFirstMove() && !CheckingForCheck(gamefield.GetVector()))
         {
-            cout<<"first moves and not checked"<<endl;
             bool Check = false;
             int Direction = (Rook->GetPosX() - King->GetPosX());
             if(Direction > 0) //Rechts castlen
@@ -147,18 +192,15 @@ bool GameManager::Castle(Coordinates<uint8_t, uint8_t> &Begin, Coordinates<uint8
                 Coordinates<uint8_t, uint8_t> RookEndPos((Rook->GetPosX()-2),Rook->GetPosY());
                 if(Rook->CheckingValidMove(KingEndPos)&&Rook->CheckingValidMove(RookEndPos))
                 {
-                    cout<<"not blocked path right"<<endl;
                     for (ChessPiece* I :gamefield.GetVector())
                     {
                         if((I->GetColor() !=gamefield.GetTurn()) && (I->CheckingValidMove(KingEndPos)||I->CheckingValidMove(RookEndPos)))
                         {
-                            cout<<"debug check:"<<I->GetPosX()<<I->GetPosY()<<endl;
                             Check = true;
                         }
                     }
                     if(!Check)
                     {
-                        cout<<"not checked on path"<<endl;
                         King->ResetMove(KingEndPos);
                         Rook->ResetMove(RookEndPos);
                         return true;
@@ -172,24 +214,81 @@ bool GameManager::Castle(Coordinates<uint8_t, uint8_t> &Begin, Coordinates<uint8
                 Coordinates<uint8_t, uint8_t> RookEndPos((Rook->GetPosX()+3),Rook->GetPosY());
                 if(Rook->CheckingValidMove(Pos1)&&Rook->CheckingValidMove(KingEndPos)&&Rook->CheckingValidMove(RookEndPos))
                 {
-                    cout<<"not blocked path Left"<<endl;
                     for (ChessPiece* I :gamefield.GetVector())
                     {
                         if((I->GetColor() !=gamefield.GetTurn()) && (I->CheckingValidMove(RookEndPos)||I->CheckingValidMove(KingEndPos)))
                         {
-                            cout<<"debug check:"<<I->GetPosX()<<I->GetPosY()<<endl;
                             Check = true;
                         }
                     }
                     if(!Check)
                     {
-                        cout<<"not checked on path"<<endl;
                         King->ResetMove(KingEndPos);
                         Rook->ResetMove(RookEndPos);
                         return true;
                     }
                 }
 
+            }
+        }
+    }
+    return false;
+}
+
+bool GameManager::EnPassant(ChessPiece *&Piece, Coordinates<uint8_t, uint8_t> &End)
+{
+    bool CorrectBeginPos = false;
+    bool CorrectEndPos = false;
+    bool EnPassant = false;
+    if(Piece->IsPawn())
+    {
+        if(!Piece->GetColor()&&(Piece->GetPosY() == 5))//correct Beginposition for white
+        {
+            CorrectBeginPos = true;
+        }
+        else if(Piece->GetColor()&&(Piece->GetPosY() == 4))//correct Beginposition for black
+        {
+            CorrectBeginPos = true;
+        }
+
+        if(abs(Piece->GetPosX()-End.GetX()) == 1)
+        {
+            if(!Piece->GetColor()&&((Piece->GetPosY() - End.GetY()) == -1))//correct Endposition for white
+            {
+                CorrectEndPos = true;
+            }
+            else if(Piece->GetColor()&&(Piece->GetPosY() - End.GetY()) == 1)//correct position for black
+            {
+                CorrectEndPos = true;
+            }
+        }
+
+        if(CorrectBeginPos && CorrectEndPos)
+        {
+            int Direction = Piece->GetPosX() - End.GetX();
+            Coordinates<uint8_t, uint8_t> AdjacentToPawn((Piece->GetPosX()),Piece->GetPosY());
+
+            if(Direction == 1) //right
+            {
+                AdjacentToPawn.setX((Piece->GetPosX()-1));
+            }
+            else if(Direction == -1) //left
+            {
+                AdjacentToPawn.setX((Piece->GetPosX()+1));
+            }
+            for (ChessPiece* I :gamefield.GetVector()) // Searching for Viable Adjacent Piece
+            {
+                if((I->GetPosX()==AdjacentToPawn.GetX())&&(I->GetPosY()==AdjacentToPawn.GetY())&&(I->GetColor()!=Piece->GetColor())&&I->IsPawn()&&I->GetSecondMove())
+                {
+                    EnPassant = true;
+                }
+            }
+
+            if(EnPassant)
+            {
+                gamefield.RemovePiece(AdjacentToPawn,!Piece->GetColor());
+                Piece->ResetMove(End);
+                return true;
             }
         }
     }
@@ -246,7 +345,8 @@ void GameManager::Turn()
         Coordinates<uint8_t,uint8_t> EndPosition;
         Coordinates<uint8_t,uint8_t> BeginPosition;
 
-        PrintGamePiecePosistion(list);
+        //PrintGamePiecePosistion(list);
+        PrintBoard(list);
         //begin postion
         if(gamefield.GetTurn()){cout<<"Blacks turn"<<endl<<"Please enter pawn that you want to move :";}
         else{cout<<"Whites turn"<<endl<<"Please enter pawn that you want to move :";}
@@ -277,11 +377,17 @@ void GameManager::Turn()
             //same comment
             }
 
+            //special moves
             if(!ValidMove)
             {
                 ValidMove = Castle(BeginPosition,EndPosition);
             }
-            //special moves
+
+            if(!ValidMove)
+            {
+                ValidMove = EnPassant(SelectedPiece,EndPosition);
+            }
+
             PromotingPawn(SelectedPiece);
         }
         //returning errors
@@ -299,7 +405,6 @@ void GameManager::Turn()
             {
                 gamefield.RemovePiece(EndPosition,!gamefield.GetTurn());
             }
-            cout<<"Valid"<<endl;
             LoggingMove(BeginPosition,EndPosition);
             TurnCompleted = true;
         }

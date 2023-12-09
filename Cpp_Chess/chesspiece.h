@@ -17,7 +17,10 @@ public:
 
     bool GetFirstMove(void) const {return FirstMove;}
     void SetFirstMove(void) {FirstMove = false;}
+    bool GetSecondMove(void) const {return SecondMove;}
+    void SetSecondMove(void) {SecondMove = false;}
 
+    virtual char IsPiece(void) const {return false;}
     virtual bool IsBishop(void) const {return false;}
     virtual bool IsKing(void) const {return false;}
     virtual bool IsKnight(void) const {return false;}
@@ -42,6 +45,7 @@ private:
     const bool Color = false; //white = false
     const GameField* field;
     bool FirstMove = true;
+    bool SecondMove = true;
 
 };
 #endif // CHESSPIECE_H

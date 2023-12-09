@@ -46,6 +46,7 @@ bool Pawn::CheckingValidMove(const Coordinates<uint8_t,uint8_t>& Input,const boo
     {
         if(MovePiece)
         {
+            if(!GetFirstMove()){SetSecondMove();}
             SetFirstMove();
             SetPos(Input);
         }

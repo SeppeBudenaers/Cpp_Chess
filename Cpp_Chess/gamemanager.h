@@ -23,6 +23,7 @@ private:
 
     //help function of turn
     void PrintGamePiecePosistion(const vector<ChessPiece*> & list);
+    void PrintBoard(const vector<ChessPiece*> & list);
     void ScanInput(Coordinates<uint8_t,uint8_t>& Input);
     bool RemoveGamePiece(const Coordinates<uint8_t,uint8_t>& Input,vector<ChessPiece*> & list);
     bool CheckingForCheck(const vector<ChessPiece*> & list);
@@ -30,6 +31,7 @@ private:
 
     //Special moves
     bool Castle(Coordinates<uint8_t,uint8_t>& Begin, Coordinates<uint8_t,uint8_t>& End);
+    bool EnPassant(ChessPiece*& Piece, Coordinates<uint8_t,uint8_t>& End);
     void PromotingPawn(ChessPiece*& Piece);
 
 

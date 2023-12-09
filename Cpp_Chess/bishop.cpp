@@ -74,6 +74,7 @@ bool Bishop::CheckingValidMove(const Coordinates<uint8_t,uint8_t>& Input,const b
     {
         if(MovePiece)
         {
+            if(!GetFirstMove()){SetSecondMove();}
             SetFirstMove();
             SetPos(Input);
         }

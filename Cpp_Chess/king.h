@@ -7,6 +7,7 @@ class King : public ChessPiece
 public:
     King(int X,int Y, bool Color, GameField*gamefield) : ChessPiece(X,Y,Color,gamefield)   {}
 
+    char IsPiece(void) const {return 'K';}
     bool IsKing() const {return true;}
 
 

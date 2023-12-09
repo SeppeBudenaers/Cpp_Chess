@@ -20,6 +20,7 @@ bool Knight::CheckingValidMove(const Coordinates<uint8_t,uint8_t>& Input, const 
     {
         if(MovePiece)
         {
+            if(!GetFirstMove()){SetSecondMove();}
             SetFirstMove();
             SetPos(Input);
         }
