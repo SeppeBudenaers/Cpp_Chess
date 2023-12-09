@@ -2,7 +2,7 @@
  I am trying to make a Cpp Chess engine 
 # Todo
 ## Functions
-- [ ] Printing a proper game board
+- [X] Printing a proper game board
 - [x] Checking for check
 - [x] Removing pieces once attacked
 - [x] Restoring gamefield when invalid move is made
