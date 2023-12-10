@@ -36,11 +36,15 @@
 - [x] dynamic memory allocation (new)
 - [x] dynamic memory removing (delete)
 - [X] 2 useful (modern) call-by-references 
+<<<<<<< Updated upstream
 - [X] useful string class usage **VIABLE**
+=======
+- [x] useful string class usage 
+>>>>>>> Stashed changes
 - [X] useful container class
 - [x] useful usage of nullptr
 - [x] useful usage of (modern) file-I/O 
-- [ ] useful exception handling **VIABLE**
+- [ ] useful exception handling **VAIBLE**
 - [ ] useful usage of lambda function
 - [ ] useful usage of threads
 ## Uitbreiding 0/10

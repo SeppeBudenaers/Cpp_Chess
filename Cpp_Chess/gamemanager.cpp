@@ -36,14 +36,18 @@ void GameManager::ScanInput(Coordinates<uint8_t,uint8_t>& Input)
     uint8_t Xinput = 0;
     uint8_t Yinput = 0;
 
-    while (!CordinatesAquired) { // bug dat cin geen tweede keer word gevraagt
+    while (!CordinatesAquired) {
         cin>>Xinput>>Yinput;
         Xinput = CharToUint8_T(Xinput);
         Yinput = CharToUint8_T(Yinput);
         Input.setX(Xinput);
         Input.setY(Yinput);
         if(!OutOfBounds(Input)){CordinatesAquired = true;}
-        else{cout<<"Cordinates are out of bounds."<<endl;}
+        else
+        {
+            cout<<"Coordinates are out of bounds."<<endl;
+            cout<<"Try again :";
+        }
     }
 
 }
@@ -345,11 +349,12 @@ void GameManager::Turn()
         Coordinates<uint8_t,uint8_t> EndPosition;
         Coordinates<uint8_t,uint8_t> BeginPosition;
 
-        //PrintGamePiecePosistion(list);
-        PrintBoard(list);
-        //begin postion
+        //Turn info
+        PrintBoard(gamefield.GetVector());
         if(gamefield.GetTurn()){cout<<"Blacks turn"<<endl<<"Please enter pawn that you want to move :";}
         else{cout<<"Whites turn"<<endl<<"Please enter pawn that you want to move :";}
+
+        //begin postion
         ScanInput(BeginPosition);
         for (ChessPiece* I :list)
         {
@@ -390,6 +395,7 @@ void GameManager::Turn()
 
             PromotingPawn(SelectedPiece);
         }
+
         //returning errors
         if(!FoundPiece){cout<<"Selected invalid piece"<<endl;}
 

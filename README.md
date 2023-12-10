@@ -1,6 +1,11 @@
 # Cpp_Chess
  I am trying to make a Cpp Chess engine 
 # Todo
+
+## Bug FIX
+
+Diagonal attack bishop and queen !!!!!
+
 ## Functions
 - [X] Printing a proper game board
 - [x] Checking for check
