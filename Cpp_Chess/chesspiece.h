@@ -32,7 +32,7 @@ public:
 
     const GameField* GetGameField(void) const {return field;}
 
-    bool SamePiece(const Coordinates<uint8_t,uint8_t>& Input,const vector<ChessPiece*> & list);
+    void SamePiece(const Coordinates<uint8_t,uint8_t>& Input,const vector<ChessPiece*> & list);
     void ResetMove(const Coordinates<uint8_t,uint8_t>& Input){coordinates.setX(Input.GetX());coordinates.setY(Input.GetY());}
     virtual bool CheckingValidMove(const Coordinates<uint8_t,uint8_t>& Input,const bool MovePiece = false)	= 0;
 

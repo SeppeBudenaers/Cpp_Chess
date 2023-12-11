@@ -1,5 +1,6 @@
 #include "gamemanager.h"
 #include "coordinates.h"
+#include "customerror.h"
 #include "math.h"
 #include <cstdint>
 #include <fstream>
@@ -125,9 +126,8 @@ bool GameManager::RemoveGamePiece(const Coordinates<uint8_t,uint8_t>& Input,vect
     return RemovingPiece;
 }
 
-bool GameManager::CheckingForCheck(const vector<ChessPiece*>& list)
+void GameManager::CheckingForCheck(const vector<ChessPiece*>& list)
 {
-    bool Check = false;
     ChessPiece* King = NULL;
     for (ChessPiece* I :list)
     {
@@ -143,17 +143,14 @@ bool GameManager::CheckingForCheck(const vector<ChessPiece*>& list)
         {
             if((I->GetColor() !=gamefield.GetTurn()) && I->CheckingValidMove(King->GetPos()))
             {
-                cout<<"debug check:"<<I->GetPosX()<<I->GetPosY()<<endl;
-                Check = true;
+             throw check();
             }
         }
     }
     else
     {
-        cout<<"Error no king"<<endl;
-        Check = true;
+        throw noking();
     }
-    return Check;
 }
 
 void GameManager::LoggingMove(Coordinates<uint8_t, uint8_t> &Begin, Coordinates<uint8_t, uint8_t> &End)
@@ -186,7 +183,8 @@ bool GameManager::Castle(Coordinates<uint8_t, uint8_t> &Begin, Coordinates<uint8
 
     if((King != NULL)&&(Rook != NULL)) //correct way to input to trigger castel
     {
-        if(King->GetFirstMove() && Rook->GetFirstMove() && !CheckingForCheck(gamefield.GetVector()))
+        CheckingForCheck(gamefield.GetVector());
+        if(King->GetFirstMove() && Rook->GetFirstMove())
         {
             bool Check = false;
             int Direction = (Rook->GetPosX() - King->GetPosX());
@@ -364,60 +362,39 @@ void GameManager::Turn()
                 FoundPiece = true;
             }
         }
+        if(!FoundPiece){throw nopiece();}
 
+        //end position
+        cout<<"To ?:";
+        ScanInput(EndPosition);
+        SelectedPiece->SamePiece(EndPosition,list);
 
-        if(FoundPiece)
+        ValidMove = SelectedPiece->CheckingValidMove(EndPosition,true);
+
+        //special moves
+        if(!ValidMove)
         {
-            //end position
-            cout<<"To ?:";
-            ScanInput(EndPosition);
-            SamePiece = SelectedPiece->SamePiece(EndPosition,list);
-            if(!SamePiece)
-            {
-            ValidMove = SelectedPiece->CheckingValidMove(EndPosition,true);
-            // is het intersant om bv if(Move()){valid = true}else{break}? om niet nodeloos functies te callen als het toch al invalid is
-            RemovingPiece = RemoveGamePiece(EndPosition,list);
-            //same comment
-            Check = CheckingForCheck(list);
-            //same comment
-            }
-
-            //special moves
-            if(!ValidMove)
-            {
-                ValidMove = Castle(BeginPosition,EndPosition);
-            }
-
-            if(!ValidMove)
-            {
-                ValidMove = EnPassant(SelectedPiece,EndPosition);
-            }
-
-            PromotingPawn(SelectedPiece);
+            ValidMove = Castle(BeginPosition,EndPosition);
         }
 
-        //returning errors
-        if(!FoundPiece){cout<<"Selected invalid piece"<<endl;}
-
-        if(!ValidMove){cout<<"invalid Move"<<endl;}
-
-        if(SamePiece){cout<<"Selected Same coordiantes"<<endl;}
-
-        if(Check){cout<<"Standing check"<<endl;}
-
-        if(FoundPiece && ValidMove && !SamePiece && !Check)
+        if(!ValidMove)
         {
-            if(RemovingPiece)
-            {
-                gamefield.RemovePiece(EndPosition,!gamefield.GetTurn());
-            }
-            LoggingMove(BeginPosition,EndPosition);
-            TurnCompleted = true;
+            ValidMove = EnPassant(SelectedPiece,EndPosition);
         }
-        else if(FoundPiece)
+        else{throw invalidmove();}
+
+        RemovingPiece = RemoveGamePiece(EndPosition,list);
+
+        CheckingForCheck(list);
+
+        PromotingPawn(SelectedPiece);
+
+        if(RemovingPiece)
         {
-            SelectedPiece->ResetMove(BeginPosition);
+            gamefield.RemovePiece(EndPosition,!gamefield.GetTurn());
         }
+        LoggingMove(BeginPosition,EndPosition);
+        TurnCompleted = true;
     }
     gamefield.EndTurn();
 }

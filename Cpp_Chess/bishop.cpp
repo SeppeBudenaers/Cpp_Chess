@@ -16,7 +16,6 @@ bool Bishop::Diagonal(const Coordinates<uint8_t,uint8_t>& Input)
                 for (int I = 1 ; I <= abs(GetPosY()-Input.GetY()); ++I) {
                     Temp.setX(GetPosX() + I);
                     Temp.setY(GetPosY() + I);
-                    cout<<"debug "<<uint8_t(Temp.GetX()+'a')<<+Temp.GetY()<<" "<<GetGameField()->IsBlocked(Temp,GetColor())<<GetGameField()->AbleToAttack(Temp ,GetColor())<<!(Temp.GetX() == Input.GetY())<<endl;
                     if(GetGameField()->IsBlocked(Temp,GetColor())||(GetGameField()->AbleToAttack(Temp ,GetColor()) && !(Temp.GetX() == Input.GetX())))
                     {
                         ValidMove = false;
@@ -29,7 +28,6 @@ bool Bishop::Diagonal(const Coordinates<uint8_t,uint8_t>& Input)
                 for (int I = 1 ; I <= abs(GetPosY()-Input.GetY()); ++I) {
                     Temp.setX(GetPosX() - I);
                     Temp.setY(GetPosY() + I);
-                    cout<<"debug "<<uint8_t(Temp.GetX()+'a')<<+Temp.GetY()<<" "<<GetGameField()->IsBlocked(Temp,GetColor())<<GetGameField()->AbleToAttack(Temp ,GetColor())<<!(Temp.GetX() == Input.GetY())<<endl;
                     if(GetGameField()->IsBlocked(Temp,GetColor())||(GetGameField()->AbleToAttack(Temp ,GetColor()) && !(Temp.GetX() == Input.GetX())))
                     {
                         ValidMove = false;
@@ -45,7 +43,6 @@ bool Bishop::Diagonal(const Coordinates<uint8_t,uint8_t>& Input)
                 for (int I = 1 ; I <= abs(GetPosY()-Input.GetY()); ++I) {
                     Temp.setX(GetPosX() + I);
                     Temp.setY(GetPosY() - I);
-                    cout<<"debug "<<uint8_t(Temp.GetX()+'a')<<+Temp.GetY()<<" "<<GetGameField()->IsBlocked(Temp,GetColor())<<GetGameField()->AbleToAttack(Temp ,GetColor())<<!(Temp.GetX() == Input.GetY())<<endl;
                     if(GetGameField()->IsBlocked(Temp,GetColor())||(GetGameField()->AbleToAttack(Temp ,GetColor()) && !(Temp.GetX() == Input.GetX())))
                     {
                         ValidMove = false;
@@ -58,7 +55,6 @@ bool Bishop::Diagonal(const Coordinates<uint8_t,uint8_t>& Input)
                 for (int I = 1 ; I <= abs(GetPosY()-Input.GetY()); ++I) {
                     Temp.setX(GetPosX() - I);
                     Temp.setY(GetPosY() - I);
-                    cout<<"debug "<<uint8_t(Temp.GetX()+'a')<<+Temp.GetY()<<" "<<GetGameField()->IsBlocked(Temp,GetColor())<<GetGameField()->AbleToAttack(Temp ,GetColor())<<!(Temp.GetX() == Input.GetY())<<endl;
                     if(GetGameField()->IsBlocked(Temp,GetColor())||(GetGameField()->AbleToAttack(Temp ,GetColor()) && !(Temp.GetX() == Input.GetX())))
                     {
                         ValidMove = false;

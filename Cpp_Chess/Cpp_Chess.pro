@@ -7,6 +7,7 @@ SOURCES += \
         bishop.cpp \
         chesspiece.cpp \
         coordinates.cpp \
+        customerror.cpp \
         gameboard.cpp \
         gamemanager.cpp \
         king.cpp \
@@ -20,6 +21,7 @@ HEADERS += \
     bishop.h \
     chesspiece.h \
     coordinates.h \
+    customerror.h \
     gameboard.h \
     gamemanager.h \
     king.h \
