@@ -128,7 +128,7 @@ bool GameManager::RemoveGamePiece(const Coordinates<uint8_t,uint8_t>& Input,vect
 
 void GameManager::CheckingForCheck(const vector<ChessPiece*>& list)
 {
-    ChessPiece* King = NULL;
+    ChessPiece* King = nullptr;
     for (ChessPiece* I :list)
     {
         if((I->GetColor() == gamefield.GetTurn())&&I->IsKing())
@@ -137,7 +137,7 @@ void GameManager::CheckingForCheck(const vector<ChessPiece*>& list)
             break;
         }
     }
-    if(King != NULL)
+    if(King != nullptr)
     {
         for (ChessPiece* I :list)
         {
@@ -170,8 +170,8 @@ void GameManager::LoggingMove(Coordinates<uint8_t, uint8_t> &Begin, Coordinates<
 
 bool GameManager::Castle(Coordinates<uint8_t, uint8_t> &Begin, Coordinates<uint8_t, uint8_t> &End)
 {
-    ChessPiece* King = NULL;
-    ChessPiece* Rook = NULL;
+    ChessPiece* King = nullptr;
+    ChessPiece* Rook = nullptr;
     for (ChessPiece* I : gamefield.GetVector())
     {
         if(((I->GetPosX() == Begin.GetX())&&(I->GetPosY() == Begin.GetY()))||((I->GetPosX() == End.GetX())&&(I->GetPosY() == End.GetY())))
@@ -181,7 +181,7 @@ bool GameManager::Castle(Coordinates<uint8_t, uint8_t> &Begin, Coordinates<uint8
         }
     }
 
-    if((King != NULL)&&(Rook != NULL)) //correct way to input to trigger castel
+    if((King != nullptr)&&(Rook != nullptr)) //correct way to input to trigger castel
     {
         CheckingForCheck(gamefield.GetVector());
         if(King->GetFirstMove() && Rook->GetFirstMove())
@@ -336,14 +336,12 @@ void GameManager::Turn()
     {
 
         //flags
-        bool SamePiece = false;
         bool FoundPiece = false;
         bool ValidMove = false;
         bool RemovingPiece = false;
-        bool Check = false;
 
         vector<ChessPiece*> list = gamefield.GetVector();
-        ChessPiece* SelectedPiece = NULL;
+        ChessPiece* SelectedPiece = nullptr;
         Coordinates<uint8_t,uint8_t> EndPosition;
         Coordinates<uint8_t,uint8_t> BeginPosition;
 
@@ -356,12 +354,13 @@ void GameManager::Turn()
         ScanInput(BeginPosition);
         for (ChessPiece* I :list)
         {
-        if((I->GetPosX() == BeginPosition.GetX() )&&(I->GetPosY() == BeginPosition.GetY())&&(I->GetColor() == gamefield.GetTurn()))
+            if((I->GetPosX() == BeginPosition.GetX() )&&(I->GetPosY() == BeginPosition.GetY())&&(I->GetColor() == gamefield.GetTurn()))
             {
                 SelectedPiece = I;
                 FoundPiece = true;
             }
         }
+
         if(!FoundPiece){throw nopiece();}
 
         //end position
@@ -370,7 +369,7 @@ void GameManager::Turn()
         SelectedPiece->SamePiece(EndPosition,list);
 
         ValidMove = SelectedPiece->CheckingValidMove(EndPosition,true);
-
+        cout<<ValidMove<<endl;
         //special moves
         if(!ValidMove)
         {
@@ -381,7 +380,8 @@ void GameManager::Turn()
         {
             ValidMove = EnPassant(SelectedPiece,EndPosition);
         }
-        else{throw invalidmove();}
+
+        if(!ValidMove){throw invalidmove();}
 
         RemovingPiece = RemoveGamePiece(EndPosition,list);
 
