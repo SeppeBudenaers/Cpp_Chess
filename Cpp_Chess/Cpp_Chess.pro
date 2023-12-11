@@ -6,8 +6,6 @@ CONFIG -= qt
 SOURCES += \
         bishop.cpp \
         chesspiece.cpp \
-        coordinates.cpp \
-        customerror.cpp \
         gameboard.cpp \
         gamemanager.cpp \
         king.cpp \

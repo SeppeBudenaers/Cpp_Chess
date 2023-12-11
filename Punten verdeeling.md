@@ -27,7 +27,7 @@
 - [X] useful template function or class
 - [ ] useful friend function or class
 
-## C++ 12/15
+## C++ 13/15
 - [x] everything in one or more self-made namespace(s)
 - [x] 2 useful unsigned chars or other better usage of memory efficient type **(for coordinates?)** is good need to change it 
 - [x] at least 4 useful const references for variables
@@ -40,14 +40,14 @@
 - [X] useful container class
 - [x] useful usage of nullptr
 - [x] useful usage of (modern) file-I/O 
-- [ ] useful exception handling **VAIBLE**
+- [x] useful exception handling
 - [ ] useful usage of lambda function
 - [ ] useful usage of threads
-## Uitbreiding 0/10
+## Uitbreiding 1/10
 - [ ] useful Qt class
 - [ ] useful usage of signals/slots
 - [ ] test-driven development (= written test plan or unit tests)
-- [ ] solve bug ticket (with pull request or commit message issue link and issue branch)
+- [x] solve bug ticket (with pull request or commit message issue link and issue branch)
 - [ ] report a bug ticket on another project
 - [ ] usage of a GUI
 - [ ] usage of OpenGL or other 3D engine

@@ -339,11 +339,12 @@ void GameManager::Turn()
         bool FoundPiece = false;
         bool ValidMove = false;
         bool RemovingPiece = false;
+        SelectedPiece = nullptr;
+        BeginPosition.setX(0);
+        BeginPosition.setY(0);
 
         vector<ChessPiece*> list = gamefield.GetVector();
-        ChessPiece* SelectedPiece = nullptr;
         Coordinates<uint8_t,uint8_t> EndPosition;
-        Coordinates<uint8_t,uint8_t> BeginPosition;
 
         //Turn info
         PrintBoard(gamefield.GetVector());

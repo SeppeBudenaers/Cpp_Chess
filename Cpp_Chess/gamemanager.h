@@ -15,11 +15,15 @@ public:
 
 
     void Turn(void);
+    void ResetTurn(void) const {SelectedPiece->ResetMove(BeginPosition);}
 
     ~GameManager(void) {}
 private:
 
     GameField gamefield;
+
+    ChessPiece* SelectedPiece = nullptr;
+    Coordinates<uint8_t,uint8_t> BeginPosition;
 
     //help function of turn
     void PrintGamePiecePosistion(const vector<ChessPiece*> & list);

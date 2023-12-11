@@ -47,7 +47,7 @@ bool Queen::LeftAndRight(const Coordinates<uint8_t,uint8_t>& Input)
         {
             for (int I = GetPosX()-1 ; I >= Input.GetX() ; --I) {
                 Temp.setX(I);
-                if(GetGameField()->IsBlocked(Temp,GetColor())||(GetGameField()->AbleToAttack(Temp,GetColor()) && !(Temp.GetX() == Input.GetY())))
+                if(GetGameField()->IsBlocked(Temp,GetColor())||(GetGameField()->AbleToAttack(Temp,GetColor()) && !(Temp.GetX() == Input.GetX())))
                 {
                     ValidMove = false;
                     break;
@@ -58,7 +58,7 @@ bool Queen::LeftAndRight(const Coordinates<uint8_t,uint8_t>& Input)
         {
             for (int I = GetPosX()+1 ; I <= Input.GetX(); ++I) {
                 Temp.setX(I);
-                if(GetGameField()->IsBlocked(Temp,GetColor())||(GetGameField()->AbleToAttack(Temp,GetColor()) && !(Temp.GetX() == Input.GetY())))
+                if(GetGameField()->IsBlocked(Temp,GetColor())||(GetGameField()->AbleToAttack(Temp,GetColor()) && !(Temp.GetX() == Input.GetX())))
                 {
                     ValidMove = false;
                     break;
