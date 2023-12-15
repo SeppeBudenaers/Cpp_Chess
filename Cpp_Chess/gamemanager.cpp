@@ -39,6 +39,13 @@ void GameManager::ScanInput(Coordinates<uint8_t,uint8_t>& Input)
 
     while (!CordinatesAquired) {
         cin>>Xinput>>Yinput;
+        if(Xinput == '-')
+        {
+            Yinput = tolower(Yinput);
+            if(Yinput == 'h'){throw help();}
+            else if(Yinput == 'r'){throw resign();}
+            else if(Yinput == 'c'){throw canceld();}
+        }
         Xinput = CharToUint8_T(Xinput);
         Yinput = CharToUint8_T(Yinput);
         Input.setX(Xinput);
@@ -326,6 +333,34 @@ void GameManager::PromotingPawn(ChessPiece* & Piece)
         gamefield.RemovePiece(Position,Color);
         gamefield.AddPiece(Position,Color,Piece);
     }
+}
+
+void GameManager::PrintEndOfgame()
+{
+    system("cls");
+    if(gamefield.GetTurn()){cout<<"WHITE HAS WON"<<endl;}
+    else{cout<<"BLACK HAS WON"<<endl;}
+    PrintBoard(gamefield.GetVector());
+}
+
+void GameManager::PrintHelp()
+{
+    cout<<"Special commands :"<<endl;
+    cout<<"-h = Help"<<endl;
+    cout<<"-c = Cancel"<<endl;
+    cout<<"-r = Resign"<<endl<<endl;
+
+    cout<<"Game Pieces : "<<endl;
+    cout<<"p = Pawn"<<endl;
+    cout<<"r = Rook"<<endl;
+    cout<<"k = knight"<<endl;
+    cout<<"b = bishop"<<endl;
+    cout<<"Q = Queen"<<endl;
+    cout<<"K = King"<<endl<<endl;
+
+    cout<<"Movement :"<<endl;
+    cout<<"select a piece by entering its `XY` coordinate for example `a2`"<<endl;
+    cout<<"When the piece is selected move it towards another legal square by entering the desired `xy` coordinate for example `a4`"<<endl<<endl;
 }
 
 void GameManager::Turn()

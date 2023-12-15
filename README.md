@@ -4,15 +4,13 @@
 
 ## Bug FIX
 
-Diagonal attack bishop and queen !!!!!
-
 ## Functions
 - [X] Printing a proper game board
 - [x] Checking for check
 - [x] Removing pieces once attacked
 - [x] Restoring gamefield when invalid move is made
 - [x] Special moves (promoting pawns/ En passant/casteling)
-- [ ] User input like -h (for help) or -r (to resign) -c (cancel).
+- [x] User input like -h (for help) or -r (to resign) -c (cancel).
 - [x] Adding deconstructors
 
 ## Movement of chess pieces 

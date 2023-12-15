@@ -6,19 +6,27 @@
 int main()
 {
     chess::GameManager gamemanager;
-    while(1)
+    bool GameOnGoing = true;
+    while(GameOnGoing)
     {
         try{
             gamemanager.Turn();
+            system("cls");
         }
-        catch(help& e) {std::cout <<e.what()<< std::endl;} // still need to write what to pinr
-        catch(canceld& e) {std::cout <<e.what()<< std::endl;}
-        catch(resign& e) {std::cout <<e.what()<< std::endl;} // resign function to tell who won ect.
-        catch(nopiece& e) {std::cout <<e.what()<< std::endl;}
-        catch(invalidmove& e) {std::cout <<e.what()<< std::endl;}
-        catch(samepiece& e) {std::cout <<e.what()<< std::endl;}
-        catch(check& e) {std::cout <<e.what()<< std::endl; gamemanager.ResetTurn();} // reset gamefield
-        catch(noking& e) {std::cout <<e.what()<< std::endl;}
+
+        catch(canceld& e) {system("cls");std::cout <<e.what()<< std::endl;}
+        catch(nopiece& e) {system("cls");std::cout <<e.what()<< std::endl;}
+        catch(noking& e) {system("cls");std::cout <<e.what()<< std::endl;}
+        catch(invalidmove& e) {system("cls");std::cout <<e.what()<< std::endl;}
+        catch(samepiece& e) {system("cls");std::cout <<e.what()<< std::endl;}
+
+        catch(check& e) {system("cls");std::cout <<e.what()<< std::endl; gamemanager.ResetTurn();} // resets gamefield
+
+        catch(help& e) {system("cls");gamemanager.PrintHelp();} // still need to write what to pinr
+
+        catch(resign& e) {GameOnGoing = false;}
+        catch(AttackedKing& e) {GameOnGoing = false;}
     }
+    gamemanager.PrintEndOfgame();
     return 0;
 }

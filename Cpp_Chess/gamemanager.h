@@ -13,7 +13,8 @@ class GameManager
 public:
     GameManager(void) {}
 
-
+    void PrintEndOfgame(void);
+    void PrintHelp(void);
     void Turn(void);
     void ResetTurn(void) const {SelectedPiece->ResetMove(BeginPosition);}
 
