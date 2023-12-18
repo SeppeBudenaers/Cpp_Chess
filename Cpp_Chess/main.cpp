@@ -25,7 +25,6 @@ int main()
         catch(help& e) {system("cls");gamemanager.PrintHelp();} // still need to write what to pinr
 
         catch(resign& e) {GameOnGoing = false;}
-        catch(AttackedKing& e) {GameOnGoing = false;}
     }
     gamemanager.PrintEndOfgame();
     return 0;

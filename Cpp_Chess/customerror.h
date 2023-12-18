@@ -50,10 +50,4 @@ class noking : public std::exception
 public:
     const char * what () const throw () {return "no king";}
 };
-
-class AttackedKing : public std::exception
-{
-public:
-    const char * what () const throw () {return "Attacked opontents king";}
-};
 #endif // CUSTOMERROR_H
