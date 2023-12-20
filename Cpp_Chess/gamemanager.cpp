@@ -74,8 +74,8 @@ void GameManager::PrintBoard(const vector<ChessPiece *> &list)
 {
     string BlackPiece = "\033[38;5;232m";
     string WhitePiece = "\033[38;5;255m";
-    string BlackSquare = "\033[48;5;144m";
-    string WhiteSquare = "\033[48;5;239m";
+    string BlackSquare = "\033[48;5;239m";
+    string WhiteSquare = "\033[48;5;144m";
     string Reset = "\033[0m";
 
     cout<<"   a  b  c  d  e  f  g  h"<<endl;
