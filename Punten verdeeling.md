@@ -2,7 +2,7 @@
 
 - [x] no globals, but statics if needed
 - [x] correct protections
-- [ ] maintainability by clean uniform code style and good function naming and/or comments everywhere
+- [x] maintainability by clean uniform code style and good function naming and/or comments everywhere
 - [x] separate header files
 - [x] one complete project that compiles and does not crash
 - [x] fully working project
@@ -48,7 +48,7 @@
 - [ ] useful usage of signals/slots
 - [ ] test-driven development (= written test plan or unit tests)
 - [x] solve bug ticket (with pull request or commit message issue link and issue branch)
-- [ ] report a bug ticket on another project
+- [x] report a bug ticket on another project
 - [ ] usage of a GUI
 - [ ] usage of OpenGL or other 3D engine
 - [ ] useful usage of an external library (not Qt)
